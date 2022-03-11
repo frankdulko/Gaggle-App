@@ -129,6 +129,7 @@ class FeedModel: ObservableObject {
                                             imageURL = url?.absoluteString ?? "unknown"
                                             //print(imageURL)
                                         }
+                                        
                                         return HonkModel(id: d.documentID,
                                                          honk: d["honk"] as? String ?? "",
                                                          netLikes: d["netLikes"] as? Int ?? 0,
