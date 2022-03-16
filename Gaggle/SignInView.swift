@@ -84,17 +84,17 @@ struct SignInView: View {
                 return
             }
             switch authResult {
-            case .none:
-                print("Could not sign in user.")
-                signInProcessing = false
-            case .some(_):
-                print("User signed in")
-                userModel.setUser()
-                userModel.getHonks()
-                signInProcessing = false
-                withAnimation {
-                    viewRouter.currentPage = .homePage
-                }
+                case .none:
+                    print("Could not sign in user.")
+                    signInProcessing = false
+                case .some(_):
+                    print("User signed in")
+                    userModel.setUser()
+                    userModel.getHonks()
+                    signInProcessing = false
+                    withAnimation {
+                        viewRouter.currentPage = .homePage
+                    }
             }
                
            }

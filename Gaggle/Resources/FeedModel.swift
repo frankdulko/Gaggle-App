@@ -16,10 +16,12 @@ class FeedModel: ObservableObject {
     //@EnvironmentObject var memoryModel : MemoryModel
     @Published var feed = [HonkModel]()
     @ObservedObject var user : UserUpdateModel
+    @ObservedObject var userHonkRefsObs : UserHonkRefsObs
     
-    init(user: UserUpdateModel){
+    init(user: UserUpdateModel, userHonkRefsObs: UserHonkRefsObs){
         print("Feed model init")
         self.user = user
+        self.userHonkRefsObs = userHonkRefsObs
     }
     
 //    func getProfilePictureURL(honk: HonkModel) -> URL{
@@ -82,7 +84,8 @@ class FeedModel: ObservableObject {
                                                             "netLikes": 0,
                                                             "authorID": user.firuser.id,
                                                             "authorName": user.firuser.displayName,
-                                                            "datePosted": Date()
+                                                            "datePosted": Date(),
+                                                            "imageURL": user.firuser.profilePictureURL
                                                            ]) { error in
                                                                 // Check for errors
                                                                 if error == nil {
@@ -92,10 +95,24 @@ class FeedModel: ObservableObject {
                                                                     // Handle the error
                                                                 }
             }
-        user.userHonks.append(HonkModel(id: docRef.documentID, honk: name, netLikes: 0, authorID: user.firuser.id, authorName: user.firuser.displayName, datePosted: Date(), imageURL: ""))
+        
+        userHonkRefsObs.addUserHonkRef(honkRef: docRef)
+        userHonkRefsObs.addUserHonk(userHonk: HonkModel(id: docRef.documentID, honk: name, netLikes: 0, authorID: user.firuser.id, authorName: user.firuser.displayName, datePosted: Date(), imageURL: user.firuser.profilePictureURL))
+        
+        
+        
+        
+        
+//        user.userHonks.append(HonkModel(id: docRef.documentID, honk: name, netLikes: 0, authorID: user.firuser.id, authorName: user.firuser.displayName, datePosted: Date(), imageURL: user.firuser.profilePictureURL?.absoluteString ?? ""))
+        
+//        userHonkRefsObs.userHonkRefs.append(UserHonkRefs(id: UUID(), honkRef: docRef))
+//        userHonkRefsObs.userHonks.append(HonkModel(id: docRef.documentID, honk: name, netLikes: 0, authorID: user.firuser.id, authorName: user.firuser.displayName, datePosted: Date(), imageURL: user.firuser.profilePictureURL?.absoluteString ?? ""))
+        
+        
+        
             
-        if (docRef != nil){
-                self.user.addHonkRef(honkRef: docRef)
+            if (docRef != nil){
+                    self.user.addHonkRef(honkRef: docRef)
             }
         }
     
@@ -114,7 +131,10 @@ class FeedModel: ObservableObject {
                                 print("\(location) empty")
                                 db.collection(location).addDocument(
                                     data: ["honk": "Be the first to post in this Gaggle!",
-                                           "authorName": "Gaggle"])
+                                           "authorName": "Gaggle",
+                                           "netLikes": 0,
+                                           "authorID": "VWVwY5GZ19b9Y4t9jTY5emndRTv2",
+                                           "datePosted": Date()])
                             }
                             else {
                                 DispatchQueue.main.async {

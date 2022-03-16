@@ -145,6 +145,6 @@ struct postButtonView: View{
 
 struct FeedView_Previews: PreviewProvider {
     static var previews: some View {
-        FeedView(feedModel: FeedModel(user: UserUpdateModel()), userModel: UserUpdateModel()).environmentObject(MemoryModel())
+        FeedView(feedModel: FeedModel(user: UserUpdateModel(), userHonkRefsObs: UserHonkRefsObs()), userModel: UserUpdateModel()).environmentObject(MemoryModel())
     }
 }

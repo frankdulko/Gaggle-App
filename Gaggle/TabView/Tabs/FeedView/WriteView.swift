@@ -79,6 +79,6 @@ struct WriteView: View {
 
 struct WriteView_Previews: PreviewProvider {
     static var previews: some View {
-        WriteView(model: FeedModel(user: UserUpdateModel()), userModel: UserUpdateModel()).environmentObject(MemoryModel())
+        WriteView(model: FeedModel(user: UserUpdateModel(), userHonkRefsObs: UserHonkRefsObs()), userModel: UserUpdateModel()).environmentObject(MemoryModel())
     }
 }

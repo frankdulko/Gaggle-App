@@ -23,9 +23,6 @@
 		9145B3F227CACB9300800EE3 /* HonkModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9145B3F127CACB9300800EE3 /* HonkModel.swift */; };
 		9145B3F427CACC2500800EE3 /* FeedModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9145B3F327CACC2500800EE3 /* FeedModel.swift */; };
 		9145B3F827CAD29400800EE3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9145B3F727CAD29400800EE3 /* GoogleService-Info.plist */; };
-		9145B3FB27CAE3C600800EE3 /* MapHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9145B3FA27CAE3C600800EE3 /* MapHandler.swift */; };
-		9145B3FD27CAE3EB00800EE3 /* LandmarkAnnotations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9145B3FC27CAE3EB00800EE3 /* LandmarkAnnotations.swift */; };
-		9145B3FF27CAE3FF00800EE3 /* Landmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9145B3FE27CAE3FF00800EE3 /* Landmark.swift */; };
 		9145B40127CAE42B00800EE3 /* MemoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9145B40027CAE42B00800EE3 /* MemoryModel.swift */; };
 		9145B40527CBE2E700800EE3 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9145B40427CBE2E700800EE3 /* SignInView.swift */; };
 		9145B40727CBF1DE00800EE3 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9145B40627CBF1DE00800EE3 /* SignUpView.swift */; };
@@ -34,6 +31,9 @@
 		9145B40D27CC04CF00800EE3 /* FIRUserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9145B40C27CC04CF00800EE3 /* FIRUserModel.swift */; };
 		9145B40F27CC057500800EE3 /* UserUpdateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9145B40E27CC057500800EE3 /* UserUpdateModel.swift */; };
 		91B1926B27D680E900F50C60 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91B1926A27D680E900F50C60 /* SettingsView.swift */; };
+		91B1926D27DBF91100F50C60 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 91B1926C27DBF91100F50C60 /* GoogleService-Info.plist */; };
+		91B1927327DC02AF00F50C60 /* UserHonkRefs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91B1927227DC02AF00F50C60 /* UserHonkRefs.swift */; };
+		91B1927527DC02FD00F50C60 /* UserHonkRefsObs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91B1927427DC02FD00F50C60 /* UserHonkRefsObs.swift */; };
 		E842C743D98002CCB419A90B /* Pods_Gaggle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 78ECD182FC631362CFEF7F7A /* Pods_Gaggle.framework */; };
 /* End PBXBuildFile section */
 
@@ -58,9 +58,6 @@
 		9145B3F127CACB9300800EE3 /* HonkModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HonkModel.swift; sourceTree = "<group>"; };
 		9145B3F327CACC2500800EE3 /* FeedModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedModel.swift; sourceTree = "<group>"; };
 		9145B3F727CAD29400800EE3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		9145B3FA27CAE3C600800EE3 /* MapHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapHandler.swift; sourceTree = "<group>"; };
-		9145B3FC27CAE3EB00800EE3 /* LandmarkAnnotations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandmarkAnnotations.swift; sourceTree = "<group>"; };
-		9145B3FE27CAE3FF00800EE3 /* Landmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Landmark.swift; sourceTree = "<group>"; };
 		9145B40027CAE42B00800EE3 /* MemoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryModel.swift; sourceTree = "<group>"; };
 		9145B40427CBE2E700800EE3 /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
 		9145B40627CBF1DE00800EE3 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
@@ -69,6 +66,9 @@
 		9145B40C27CC04CF00800EE3 /* FIRUserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FIRUserModel.swift; sourceTree = "<group>"; };
 		9145B40E27CC057500800EE3 /* UserUpdateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserUpdateModel.swift; sourceTree = "<group>"; };
 		91B1926A27D680E900F50C60 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		91B1926C27DBF91100F50C60 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		91B1927227DC02AF00F50C60 /* UserHonkRefs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserHonkRefs.swift; sourceTree = "<group>"; };
+		91B1927427DC02FD00F50C60 /* UserHonkRefsObs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserHonkRefsObs.swift; sourceTree = "<group>"; };
 		94EF5D604831EE138FFF1DB8 /* Pods-Gaggle.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Gaggle.debug.xcconfig"; path = "Target Support Files/Pods-Gaggle/Pods-Gaggle.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -138,6 +138,7 @@
 				9145B3D127CABF4400800EE3 /* GaggleApp.swift */,
 				9145B3D527CABF4600800EE3 /* Assets.xcassets */,
 				9145B3F727CAD29400800EE3 /* GoogleService-Info.plist */,
+				91B1926C27DBF91100F50C60 /* GoogleService-Info.plist */,
 				9145B3D727CABF4600800EE3 /* Preview Content */,
 				9145B40427CBE2E700800EE3 /* SignInView.swift */,
 				9145B40627CBF1DE00800EE3 /* SignUpView.swift */,
@@ -166,7 +167,7 @@
 		9145B3EA27CAC7AF00800EE3 /* Tabs */ = {
 			isa = PBXGroup;
 			children = (
-				9145B3F927CAE3B300800EE3 /* MapView */,
+				9145B3E427CAC73F00800EE3 /* MapView.swift */,
 				9145B3EB27CAC7C700800EE3 /* FeedView */,
 				9145B3E627CAC74D00800EE3 /* ProfileView.swift */,
 				91B1926A27D680E900F50C60 /* SettingsView.swift */,
@@ -187,27 +188,18 @@
 		9145B3F027CACB7800800EE3 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				9145B40827CBF49600800EE3 /* ViewRouter.swift */,
+				9125AF5627CFE86300C1697E /* Extensions.swift */,
+				9125AF5E27D2CB0600C1697E /* ImagePicker.swift */,
+				9145B40027CAE42B00800EE3 /* MemoryModel.swift */,
 				9145B3F127CACB9300800EE3 /* HonkModel.swift */,
 				9145B3F327CACC2500800EE3 /* FeedModel.swift */,
-				9145B40027CAE42B00800EE3 /* MemoryModel.swift */,
-				9145B40827CBF49600800EE3 /* ViewRouter.swift */,
 				9145B40C27CC04CF00800EE3 /* FIRUserModel.swift */,
 				9145B40E27CC057500800EE3 /* UserUpdateModel.swift */,
-				9125AF5E27D2CB0600C1697E /* ImagePicker.swift */,
-				9125AF5627CFE86300C1697E /* Extensions.swift */,
+				91B1927227DC02AF00F50C60 /* UserHonkRefs.swift */,
+				91B1927427DC02FD00F50C60 /* UserHonkRefsObs.swift */,
 			);
 			path = Resources;
-			sourceTree = "<group>";
-		};
-		9145B3F927CAE3B300800EE3 /* MapView */ = {
-			isa = PBXGroup;
-			children = (
-				9145B3E427CAC73F00800EE3 /* MapView.swift */,
-				9145B3FA27CAE3C600800EE3 /* MapHandler.swift */,
-				9145B3FC27CAE3EB00800EE3 /* LandmarkAnnotations.swift */,
-				9145B3FE27CAE3FF00800EE3 /* Landmark.swift */,
-			);
-			path = MapView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -275,6 +267,7 @@
 				9145B3F827CAD29400800EE3 /* GoogleService-Info.plist in Resources */,
 				9125AF5D27CFF0EE00C1697E /* Retrock.ttf in Resources */,
 				9125AF5A27CFEE2300C1697E /* Hamish.otf in Resources */,
+				91B1926D27DBF91100F50C60 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -328,12 +321,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				9145B40D27CC04CF00800EE3 /* FIRUserModel.swift in Sources */,
-				9145B3FD27CAE3EB00800EE3 /* LandmarkAnnotations.swift in Sources */,
 				9145B40727CBF1DE00800EE3 /* SignUpView.swift in Sources */,
 				9125AF5F27D2CB0600C1697E /* ImagePicker.swift in Sources */,
 				9145B3E327CAC72600800EE3 /* HonkView.swift in Sources */,
-				9145B3FB27CAE3C600800EE3 /* MapHandler.swift in Sources */,
 				9145B3F427CACC2500800EE3 /* FeedModel.swift in Sources */,
+				91B1927327DC02AF00F50C60 /* UserHonkRefs.swift in Sources */,
 				9145B3E527CAC73F00800EE3 /* MapView.swift in Sources */,
 				9145B3E727CAC74D00800EE3 /* ProfileView.swift in Sources */,
 				9145B40927CBF49600800EE3 /* ViewRouter.swift in Sources */,
@@ -345,8 +337,8 @@
 				9145B3E927CAC79000800EE3 /* FeedView.swift in Sources */,
 				9125AF5727CFE86300C1697E /* Extensions.swift in Sources */,
 				9145B3D227CABF4400800EE3 /* GaggleApp.swift in Sources */,
+				91B1927527DC02FD00F50C60 /* UserHonkRefsObs.swift in Sources */,
 				9145B3EF27CAC86700800EE3 /* WriteView.swift in Sources */,
-				9145B3FF27CAE3FF00800EE3 /* Landmark.swift in Sources */,
 				9145B40127CAE42B00800EE3 /* MemoryModel.swift in Sources */,
 				91B1926B27D680E900F50C60 /* SettingsView.swift in Sources */,
 			);

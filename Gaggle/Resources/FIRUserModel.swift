@@ -12,11 +12,10 @@ struct FIRUserModel: Identifiable{
     
     var id: String = ""
     var displayName: String = ""
-    var honks: [String] = []
     var karma: Int = 0
     var likes: [String] = []
     var dislikes: [String] = []
-    var profilePictureURL = URL(string: "")
+    var profilePictureURL : String = ""
     var honkRefs: [DocumentReference] = []
 }
 

@@ -21,13 +21,14 @@ struct ProfileView: View {
     
     @ObservedObject var userModel : UserUpdateModel
     @ObservedObject var feedModel : FeedModel
+    @ObservedObject var userHonkRefsObs : UserHonkRefsObs
 
     var body: some View {
         ZStack{
             VStack{
                 gaggleTitleView()
                 HStack(){
-                    WebImage(url: userModel.firuser.profilePictureURL)
+                    WebImage(url: URL(string: userModel.firuser.profilePictureURL))
                         .resizable()
                         .frame(width: 100, height: 100)
                         .background(Color.gaggleGray.cornerRadius(200))
@@ -74,7 +75,7 @@ struct ProfileView: View {
                     Spacer()
                     VStack{
                         Text("Honks")
-                        Text(String(userModel.firuser.honks.count))
+                        Text(String(userModel.firuser.honkRefs.count))
                     }
                     Spacer()
                     VStack{
@@ -83,14 +84,13 @@ struct ProfileView: View {
                     }
                     Spacer()
                 }
-                .padding()
                 .font(.title2)
                 //Image(systemName: memoryModel.user.profilePicture)
                 Divider()
-                    .padding()
+                    .padding([.leading, .trailing], 10)
                 ScrollView{
                         VStack{
-                            ForEach(userModel.userHonks, id: \.id) { honk in
+                            ForEach(userHonkRefsObs.userHonks, id: \.id) { honk in
                                 HonkView(honk: honk, userModel: userModel, model: feedModel)
                             }
                         }
@@ -135,6 +135,6 @@ struct ProfileView: View {
 
 struct ProfileView_Previews: PreviewProvider {
     static var previews: some View {
-        ProfileView(userModel: UserUpdateModel(), feedModel: FeedModel(user: UserUpdateModel())).environmentObject(MemoryModel())
+        ProfileView(userModel: UserUpdateModel(), feedModel: FeedModel(user: UserUpdateModel(), userHonkRefsObs: UserHonkRefsObs()), userHonkRefsObs: UserHonkRefsObs()).environmentObject(MemoryModel())
     }
 }

@@ -11,6 +11,7 @@ struct MotherView: View {
     
     @EnvironmentObject var viewRouter: ViewRouter
     @StateObject var userUpdateModel = UserUpdateModel()
+    @StateObject var userHonkRefsObs = UserHonkRefsObs()
     
     
     var body: some View {
@@ -20,7 +21,7 @@ struct MotherView: View {
             case .signInPage:
                 SignInView(userModel: userUpdateModel)
             case .homePage:
-                ContentView(userUpdateModel: userUpdateModel)
+            ContentView(userUpdateModel: userUpdateModel, userHonkRefsObs: userHonkRefsObs)
             case .settingsPage:
                 SettingsView()
         }

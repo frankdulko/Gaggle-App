@@ -149,7 +149,7 @@ class UserUpdateModel: ObservableObject {
                                      print((error?.localizedDescription)!)
                                      return
                                 }
-                                self.firuser.profilePictureURL = url!
+                                self.firuser.profilePictureURL = url!.absoluteString
                             }
                         }
 
@@ -165,11 +165,21 @@ class UserUpdateModel: ObservableObject {
         let uid = Auth.auth().currentUser?.uid ?? ""
         let db = Firestore.firestore()
         
+        let storageRef = Storage.storage().reference(withPath: "/profilePictures/\(uid).jpeg")
+        storageRef.downloadURL { (url, error) in
+            if error != nil {
+                 print((error?.localizedDescription)!)
+                 return
+            }
+            self.firuser.profilePictureURL = url!.absoluteString
+        }
+        
         db.collection("Users").document(uid).setData(["displayName": displayName,
-                                                      "honks": [],
                                                       "karma": 0,
                                                       "likes": [],
-                                                      "dislikes": []]) { error in
+                                                      "dislikes": [],
+                                                      "profilePictureURL": "gs://gaggle-a3b9e.appspot.com/profilePictures/default.jpeg",
+                                                      "honkRefs": []]) { error in
             if error == nil {
                 self.setUser()
             }
@@ -199,23 +209,22 @@ class UserUpdateModel: ObservableObject {
                     let data = document.data()
                     if let data = data {
                         self.firuser.id = uid
-                        self.firuser.honks = data["honks"] as? [String] ?? []
                         self.firuser.displayName = data["displayName"] as? String ?? ""
                         self.firuser.karma = data["karma"] as? Int ?? 0
                         self.firuser.likes = data["likes"] as? [String] ?? []
                         self.firuser.dislikes = data["dislikes"] as? [String] ?? []
                         self.firuser.honkRefs = data["honkRefs"] as? [DocumentReference] ?? []
+                        
+                        let storageRef = Storage.storage().reference(withPath: "/profilePictures/\(uid).jpeg")
+                        storageRef.downloadURL { (url, error) in
+                            if error != nil {
+                                 print((error?.localizedDescription)!)
+                                 return
+                            }
+                            self.firuser.profilePictureURL = url!.absoluteString
+                        }
                     }
                 }
-            }
-            
-            let storageRef = Storage.storage().reference(withPath: "/profilePictures/\(uid).jpeg")
-            storageRef.downloadURL { (url, error) in
-                if error != nil {
-                     print((error?.localizedDescription)!)
-                     return
-                }
-                self.firuser.profilePictureURL = url!
             }
         }
         else {

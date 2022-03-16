@@ -10,8 +10,11 @@ import UIKit
 
 struct ContentView: View {
     @StateObject var locationManager = LocationManager()
-    @ObservedObject var userUpdateModel : UserUpdateModel
     @StateObject var feedModel : FeedModel
+    @ObservedObject var userHonkRefsObs : UserHonkRefsObs
+    @ObservedObject var userUpdateModel : UserUpdateModel
+
+
     
     var body: some View {
         TabView{
@@ -23,7 +26,7 @@ struct ContentView: View {
                 .tabItem {
                     Label("", systemImage: "rectangle.grid.1x2.fill")
                 }
-            ProfileView(userModel: userUpdateModel, feedModel: feedModel)
+            ProfileView(userModel: userUpdateModel, feedModel: feedModel, userHonkRefsObs: userHonkRefsObs)
                 .tabItem{
                     Label("", systemImage: "person.crop.circle")
                 }
@@ -31,9 +34,11 @@ struct ContentView: View {
         .accentColor(Color.gaggleGray)
     }
     
-    init(userUpdateModel: UserUpdateModel){
-        self._feedModel = StateObject(wrappedValue: FeedModel(user: userUpdateModel))
+    init(userUpdateModel: UserUpdateModel, userHonkRefsObs: UserHonkRefsObs){
+        print("Content View init")
+        self._feedModel = StateObject(wrappedValue: FeedModel(user: userUpdateModel, userHonkRefsObs: userHonkRefsObs))
         self.userUpdateModel = userUpdateModel
+        self.userHonkRefsObs = userHonkRefsObs
     }
     
     
@@ -41,6 +46,6 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView(userUpdateModel: UserUpdateModel())
+        ContentView(userUpdateModel: UserUpdateModel(), userHonkRefsObs: UserHonkRefsObs())
     }
 }

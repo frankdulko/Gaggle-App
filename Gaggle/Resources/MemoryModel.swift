@@ -8,6 +8,7 @@
 import Foundation
 import CoreLocation
 import MapKit
+import SwiftUI
 
 struct User : Identifiable {
     let id = UUID()
@@ -17,6 +18,7 @@ struct User : Identifiable {
     var checkedIn: Bool = false
     var currentLocation:CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 0, longitude: 0)
     var signedIn: Bool = false
+    @AppStorage("uid") var uid : String = ""
 }
 
 struct Item : Identifiable {
