@@ -23,7 +23,7 @@ class UserHonkRefsObs : ObservableObject {
     //CALLED AFTER SIGN IN COMPLETED
     init(){
         print("UserHonkRefObs init");
-        getUserHonkRefs()
+        //getUserHonkRefs()
     }
     
     func getUserHonkRefs(){

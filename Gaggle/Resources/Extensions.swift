@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 import SwiftUI
 
 extension Color{
@@ -24,4 +25,14 @@ extension Color{
     public static var gaggleYellow: Color {
         return Color(UIColor(red: 218/255, green: 255/255, blue: 138/255, alpha: 1.0))
     }
+}
+
+extension UIImage {
+    
+//    public func aspectFittedToHeight(height: Int) -> UIImage{
+//        var image = self
+//        
+//        
+//        return UIImage()
+//    }
 }

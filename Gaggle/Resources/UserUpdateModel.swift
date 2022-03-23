@@ -125,13 +125,35 @@ class UserUpdateModel: ObservableObject {
 //        return returnHonk
    // }
     
+    func getProfilePictureURL(){
+        let uid = Auth.auth().currentUser?.uid ?? ""
+        print(uid)
+
+        let storageRef = Storage.storage().reference(withPath: "/profilePictures/\(uid).jpeg")
+        storageRef.downloadURL { (url, error) in
+        if error != nil {
+             print((error?.localizedDescription)!)
+            let storageRef = Storage.storage().reference(withPath: "/profilePictures/default.jpeg")
+            storageRef.downloadURL { (url, error) in
+            if error != nil {
+                 print((error?.localizedDescription)!)
+                 return
+            }
+            self.firuser.profilePictureURL = url?.absoluteString ?? ""
+            }
+             return
+        }
+        self.firuser.profilePictureURL = url?.absoluteString ?? ""
+        }
+    }
+    
     func newProfilePicture(image: UIImage){
         print("Updating Profile Picture")
         let storage = Storage.storage()
         let storageRef = storage.reference().child("profilePictures/\(self.firuser.id).jpeg")
         
         // Resize the image to 200px in height with a custom extension
-        //let resizedImage = image.aspectFittedToHeight(200)
+        //let resizedImage = image.aspectFittedToHeight(height: 200)
 
         // Convert the image into JPEG and compress the quality to reduce its size
         let data = image.jpegData(compressionQuality: 0.2)
@@ -165,20 +187,10 @@ class UserUpdateModel: ObservableObject {
         let uid = Auth.auth().currentUser?.uid ?? ""
         let db = Firestore.firestore()
         
-        let storageRef = Storage.storage().reference(withPath: "/profilePictures/\(uid).jpeg")
-        storageRef.downloadURL { (url, error) in
-            if error != nil {
-                 print((error?.localizedDescription)!)
-                 return
-            }
-            self.firuser.profilePictureURL = url!.absoluteString
-        }
-        
         db.collection("Users").document(uid).setData(["displayName": displayName,
                                                       "karma": 0,
                                                       "likes": [],
                                                       "dislikes": [],
-                                                      "profilePictureURL": "gs://gaggle-a3b9e.appspot.com/profilePictures/default.jpeg",
                                                       "honkRefs": []]) { error in
             if error == nil {
                 self.setUser()
@@ -214,15 +226,6 @@ class UserUpdateModel: ObservableObject {
                         self.firuser.likes = data["likes"] as? [String] ?? []
                         self.firuser.dislikes = data["dislikes"] as? [String] ?? []
                         self.firuser.honkRefs = data["honkRefs"] as? [DocumentReference] ?? []
-                        
-                        let storageRef = Storage.storage().reference(withPath: "/profilePictures/\(uid).jpeg")
-                        storageRef.downloadURL { (url, error) in
-                            if error != nil {
-                                 print((error?.localizedDescription)!)
-                                 return
-                            }
-                            self.firuser.profilePictureURL = url!.absoluteString
-                        }
                     }
                 }
             }

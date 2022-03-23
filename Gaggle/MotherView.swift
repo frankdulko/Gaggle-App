@@ -19,7 +19,7 @@ struct MotherView: View {
             case .signUpPage:
                 SignUpView(userModel: userUpdateModel)
             case .signInPage:
-                SignInView(userModel: userUpdateModel)
+            SignInView(userModel: userUpdateModel, userHonkRefsObs: userHonkRefsObs)
             case .homePage:
             ContentView(userUpdateModel: userUpdateModel, userHonkRefsObs: userHonkRefsObs)
             case .settingsPage:

@@ -32,7 +32,7 @@ struct HonkView: View{
         HStack{
             VStack{
                 Spacer()
-                WebImage(url: URL(string: honk.imageURL))
+                WebImage(url: URL(string: model.urls[honk.authorID] ?? ""))
                     .resizable()
                     .frame(width: 40, height: 40)
                     .clipShape(Circle())
@@ -42,10 +42,10 @@ struct HonkView: View{
             VStack(alignment: .leading){
                 Text(honk.authorName)
                     .padding([.top, .leading], 20)
-                    .font(.headline)
+                    //.font(Font.custom("MADE Tommy Soft Light PERSONAL USE", size: 18))
                 Text(honk.honk)
                     .padding(.leading, 25)
-                    .font(.subheadline)
+                    .font(Font.custom("MADE Tommy Soft Light PERSONAL USE", size: 18))
                 Spacer()
                 Menu {
                     Text(Date().formatted(date: .abbreviated, time: .complete))
@@ -83,16 +83,19 @@ struct HonkView: View{
                     }
                 } label: {
                     if (liked == true && disliked == false) || (userModel.firuser.likes.contains(honk.id)){
-                        Image(systemName: "chevron.up")
-                            .foregroundColor(Color(UIColor.red))
+                        Image("chevron_up_on")
+                            .resizable()
+                            .frame(width: 25, height: 15)
                     }
                     else {
-                    Image(systemName: "chevron.up")
-                        .foregroundColor(Color(UIColor.systemGray))
-                    }
+                        Image("chevron_up")
+                            .resizable()
+                            .frame(width: 25, height: 15)
+                        }
                 }
                 .padding()
                 Text(String(honk.netLikes))
+                    .font(Font.custom("aAkhirTahun", size: 18))
                 Button {
                     if (userModel.firuser.dislikes.contains(honk.id)){
                         liked = false
@@ -115,12 +118,15 @@ struct HonkView: View{
                     }
                 } label: {
                     if (liked == false && disliked == true) || (userModel.firuser.dislikes.contains(honk.id)) {
-                        Image(systemName: "chevron.down")
-                            .foregroundColor(Color(UIColor.red))
+                        Image("chevron_down_on")
+                            .resizable()
+                            .frame(width: 25, height: 15)
+                        
                     }
                     else {
-                    Image(systemName: "chevron.down")
-                        .foregroundColor(Color(UIColor.systemGray))
+                        Image("chevron_down")
+                            .resizable()
+                            .frame(width: 25, height: 15)
                     }
                 }
                 .padding()
@@ -131,7 +137,7 @@ struct HonkView: View{
         }
         .padding([.top,.bottom], 5)
         .onAppear {
-            print(honk.imageURL)
+            model.getURL(authorID: honk.authorID)
         }
     }
 }

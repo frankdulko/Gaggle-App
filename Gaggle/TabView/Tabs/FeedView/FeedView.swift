@@ -17,13 +17,13 @@ struct FeedView: View {
     var body: some View {
             ZStack{
                 if(memoryModel.user.checkedIn){
-//              if(true){
+              //if(true){
                     VStack{
                         gaggleTitleView()
                         HStack{
                             Spacer()
                             Text(memoryModel.user.location)
-                                .font(.headline)
+                                .font(Font.custom("aAkhirTahun", size: 18))
                                 .padding()
                             Spacer()
                             Menu{
@@ -57,20 +57,21 @@ struct FeedView: View {
                     postButtonView(feedModel: feedModel, userModel: userModel)
                 }
                 else{
-                    VStack {
+                    VStack(alignment: .center) {
                         gaggleTitleView()
                         Spacer()
-                        Text("Join a location's Gaggle to participate")
+                        Text("Join a Gaggle")
                             .font(Font.largeTitle)
                             .padding()
+                            .multilineTextAlignment(.center)
                         Spacer()
                     }
                 }
             }
             .onAppear {
-                if (memoryModel.user.checkedIn){
-                    feedModel.getData(location: memoryModel.user.location)
-                }
+//                if (memoryModel.user.checkedIn){
+//                    feedModel.getData(location: memoryModel.user.location)
+//                }
             }
     }
         
@@ -89,7 +90,6 @@ struct gaggleTitleView: View{
         HStack(alignment: .center) {
             Text("Gaggle")
                 .font(Font.custom("Hamish", size: 48))
-                .padding()
         }
         //.frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: 75, alignment: .center)
         //.background(

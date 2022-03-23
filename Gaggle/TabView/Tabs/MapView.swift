@@ -12,13 +12,18 @@ struct MapView: View {
     @EnvironmentObject var memoryModel : MemoryModel
     @State private var significantPlaces : [SignificantPlace] = [SignificantPlace]()
     @State private var tapped: Bool = false
+    @State private var showJoinView: Bool = false
+    @State private var selection = ""
     @ObservedObject var currentLocation : LocationManager
+    @ObservedObject var feedModel : FeedModel
+    
     
     @State private var region : MKCoordinateRegion
     
-    init(currentLocation: LocationManager){
+    init(currentLocation: LocationManager, feedModel : FeedModel){
         self.currentLocation = currentLocation
         region = MKCoordinateRegion(center: currentLocation.location.location, span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5))
+        self.feedModel = feedModel
     }
     
     var body: some View {
@@ -32,40 +37,74 @@ struct MapView: View {
 //                        Text("locations = \(currentLocation.location.location.latitude) \(currentLocation.location.location.longitude)")
                         Spacer()
                             List{
-                                ForEach(significantPlaces) { landmark in
+                                ForEach(significantPlaces) { place in
                                     HStack{
-                                        Text(landmark.name)
+                                        Text(place.name)
                                         Spacer()
-                                        Menu("Join") {
-                                            Button {
-                                                memoryModel.user.location = landmark.name
-                                                memoryModel.user.checkedIn = true
-                                            } label: {
-                                                Text("Join Gaggle")
+                                        Button {
+                                            selection = place.name
+                                            withAnimation {
+                                                showJoinView.toggle()
                                             }
+                                        } label: {
+                                            Text("")
                                         }
-                                        .foregroundColor(.black)
-                                        .padding([.leading,.trailing], 20)
-                                        .padding([.top,.bottom], 5)
-                                        .background(Color.gaggleGreen.cornerRadius(100))
-                                        }
+                                    }
                                 }
                             }
                             .listStyle(.plain)
+                    }
+                if showJoinView {
+                    VStack{
+                        Spacer()
+                            VStack{
+                            Text("Join \(selection)?")
+                                .fontWeight(.bold)
+                            Button {
+                                memoryModel.user.location = selection
+                                memoryModel.user.checkedIn = true
+                                feedModel.getData(location: selection)
+                                print(feedModel.urls)
+                                withAnimation {
+                                    showJoinView.toggle()
+                                }
+                            } label: {
+                                Text("Yes")
+                                    .frame(width: UIScreen.main.bounds.width-50, height: 50)
+                                    .background(LinearGradient(colors: [Color.gaggleGreen, Color.gaggleYellow], startPoint: .bottomLeading, endPoint: .topTrailing).cornerRadius(15))
+                                    .font(.title3)
+                                    .foregroundColor(.black)
+                            }
+                            Button {
+                                withAnimation {
+                                    showJoinView.toggle()
+                                }
+                            } label: {
+                                Text("No")
+                                    .frame(width: UIScreen.main.bounds.width-50, height: 50)
+                                    .background(Color(UIColor.systemGray5).cornerRadius(15))
+                                    .font(.title3)
+                                    .foregroundColor(Color(UIColor.systemGray))
+                            }
                         }
-                        .onAppear {
-                            print("Map onAppear")
-                            getSignificantPlaces()
-                            checkedInManager()
-                        }
-                        .onDisappear {
-                            checkedInManager()
-                        }
-                        .onChange(of: currentLocation.location) { newValue in
-                            getSignificantPlaces()
-                            print("Location Changed")
-                        }
-                        
+                            .padding()
+                            .background(Color(UIColor.systemGray6).cornerRadius(15).shadow(color: Color(UIColor.systemGray), radius: 5, x: 0, y: 5))
+                    }
+                    .opacity(0.95)
+                    .padding()
+                }
+            }
+            .onAppear {
+                print("Map onAppear")
+                getSignificantPlaces()
+                checkedInManager()
+            }
+            .onDisappear {
+                checkedInManager()
+            }
+            .onChange(of: currentLocation.location) { newValue in
+                getSignificantPlaces()
+                print("Location Changed")
             }
     }
     
@@ -102,7 +141,7 @@ struct MapView: View {
 
 struct MapView_Previews: PreviewProvider {
     static var previews: some View {
-        MapView(currentLocation: LocationManager()).environmentObject(MemoryModel())
+        MapView(currentLocation: LocationManager(), feedModel: FeedModel(user: UserUpdateModel(), userHonkRefsObs: UserHonkRefsObs())).environmentObject(MemoryModel())
     }
 }
 
@@ -168,12 +207,12 @@ struct PinAnnotationMapView: View {
         Map(coordinateRegion: $region, interactionModes: .init(), showsUserLocation: true, userTrackingMode: .constant(.follow), annotationItems: places)
         { place in
             MapAnnotation(coordinate: place.location) {
-                Image("gaggle-icon-clear")
+                Image(systemName: "person.3")
                     .resizable()
                     .scaledToFit()
                     .padding(.all, 5)
                     .frame(width: 40, height: 40)
-                    .background(LinearGradient(colors: [Color.gaggleGreen, Color.gaggleYellow], startPoint: .bottomLeading, endPoint: .topTrailing).cornerRadius(20).shadow(color: Color(UIColor.systemGray), radius: 5, x: 5, y: 5))
+                    .background(LinearGradient(colors: [Color.gaggleGreen, Color.gaggleYellow], startPoint: .bottomLeading, endPoint: .topTrailing).cornerRadius(20).shadow(color: Color(UIColor.systemGray), radius: 5, x: 0, y: 3))
                         }
         }
     }

@@ -25,14 +25,14 @@ struct ProfileView: View {
 
     var body: some View {
         ZStack{
-            VStack{
+            VStack {
                 gaggleTitleView()
-                HStack(){
+                HStack(alignment: .top){
                     WebImage(url: URL(string: userModel.firuser.profilePictureURL))
                         .resizable()
                         .frame(width: 100, height: 100)
-                        .background(Color.gaggleGray.cornerRadius(200))
                         .clipShape(Circle())
+                        .scaledToFill()
                         
         //            Text(userModel.firuser.displayName ?? "Frank")
         //                .font(.system(size: 48))
@@ -70,7 +70,7 @@ struct ProfileView: View {
 //                        .padding([.leading,.trailing], 10)
 //                    }
                 }
-                .padding()
+                .padding([.leading, .trailing], 10)
                 HStack{
                     Spacer()
                     VStack{
@@ -105,13 +105,14 @@ struct ProfileView: View {
                     .frame(width: 20, height: 20)
             }
             .frame(width: 30, height: 30)
-            .background(Color(UIColor.systemBlue).cornerRadius(50).shadow(color: Color(UIColor.systemGray), radius: 5, x: 5, y: 10))
+            .background(Color(UIColor.systemBlue).cornerRadius(50).shadow(color: Color(UIColor.systemGray), radius: 5, x: 3, y: 3))
             .foregroundColor(.white)
-            .position(x: 95, y: 195)
+            .position(x: 95, y: 165)
 
         }
         .onAppear {
             //userModel.setUser(uid: Auth.auth().currentUser?.uid ?? "")
+            //userModel.getProfilePictureURL()
         }
         .sheet(isPresented: $showSheet) {
             ImagePicker(sourceType: .photoLibrary, selectedImage: self.$image, userModel: userModel)

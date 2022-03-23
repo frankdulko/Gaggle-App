@@ -17,6 +17,7 @@ struct SignInView: View {
     
     @EnvironmentObject var viewRouter : ViewRouter
     @ObservedObject var userModel : UserUpdateModel
+    @ObservedObject var userHonkRefsObs : UserHonkRefsObs
 
     var body: some View {
             VStack {
@@ -90,7 +91,9 @@ struct SignInView: View {
                 case .some(_):
                     print("User signed in")
                     userModel.setUser()
+                    userModel.getProfilePictureURL()
                     userModel.getHonks()
+                    userHonkRefsObs.getUserHonkRefs()
                     signInProcessing = false
                     withAnimation {
                         viewRouter.currentPage = .homePage
@@ -103,7 +106,7 @@ struct SignInView: View {
 
 struct LogInView_Previews: PreviewProvider {
     static var previews: some View {
-        SignInView(userModel: UserUpdateModel())
+        SignInView(userModel: UserUpdateModel(), userHonkRefsObs: UserHonkRefsObs())
     }
 }
 

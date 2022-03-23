@@ -34,6 +34,10 @@
 		91B1926D27DBF91100F50C60 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 91B1926C27DBF91100F50C60 /* GoogleService-Info.plist */; };
 		91B1927327DC02AF00F50C60 /* UserHonkRefs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91B1927227DC02AF00F50C60 /* UserHonkRefs.swift */; };
 		91B1927527DC02FD00F50C60 /* UserHonkRefsObs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91B1927427DC02FD00F50C60 /* UserHonkRefsObs.swift */; };
+		91B1927727E2EE3500F50C60 /* PlaceHonks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91B1927627E2EE3500F50C60 /* PlaceHonks.swift */; };
+		91B1927927E3C3BF00F50C60 /* Honk.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91B1927827E3C3BF00F50C60 /* Honk.swift */; };
+		91B1927B27EBB50F00F50C60 /* ModernSans-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 91B1927A27EBB50F00F50C60 /* ModernSans-Light.otf */; };
+		91B1928127EBC1DF00F50C60 /* aAkhirTahun.otf in Resources */ = {isa = PBXBuildFile; fileRef = 91B1928027EBC1DF00F50C60 /* aAkhirTahun.otf */; };
 		E842C743D98002CCB419A90B /* Pods_Gaggle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 78ECD182FC631362CFEF7F7A /* Pods_Gaggle.framework */; };
 /* End PBXBuildFile section */
 
@@ -69,6 +73,10 @@
 		91B1926C27DBF91100F50C60 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		91B1927227DC02AF00F50C60 /* UserHonkRefs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserHonkRefs.swift; sourceTree = "<group>"; };
 		91B1927427DC02FD00F50C60 /* UserHonkRefsObs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserHonkRefsObs.swift; sourceTree = "<group>"; };
+		91B1927627E2EE3500F50C60 /* PlaceHonks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceHonks.swift; sourceTree = "<group>"; };
+		91B1927827E3C3BF00F50C60 /* Honk.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Honk.swift; sourceTree = "<group>"; };
+		91B1927A27EBB50F00F50C60 /* ModernSans-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ModernSans-Light.otf"; sourceTree = "<group>"; };
+		91B1928027EBC1DF00F50C60 /* aAkhirTahun.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = aAkhirTahun.otf; sourceTree = "<group>"; };
 		94EF5D604831EE138FFF1DB8 /* Pods-Gaggle.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Gaggle.debug.xcconfig"; path = "Target Support Files/Pods-Gaggle/Pods-Gaggle.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -105,6 +113,8 @@
 			isa = PBXGroup;
 			children = (
 				9125AF5927CFEE2300C1697E /* Hamish.otf */,
+				91B1927A27EBB50F00F50C60 /* ModernSans-Light.otf */,
+				91B1928027EBC1DF00F50C60 /* aAkhirTahun.otf */,
 				9125AF5C27CFF0EE00C1697E /* Retrock.ttf */,
 			);
 			path = Fonts;
@@ -198,6 +208,8 @@
 				9145B40E27CC057500800EE3 /* UserUpdateModel.swift */,
 				91B1927227DC02AF00F50C60 /* UserHonkRefs.swift */,
 				91B1927427DC02FD00F50C60 /* UserHonkRefsObs.swift */,
+				91B1927627E2EE3500F50C60 /* PlaceHonks.swift */,
+				91B1927827E3C3BF00F50C60 /* Honk.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -266,7 +278,9 @@
 				9145B3D627CABF4600800EE3 /* Assets.xcassets in Resources */,
 				9145B3F827CAD29400800EE3 /* GoogleService-Info.plist in Resources */,
 				9125AF5D27CFF0EE00C1697E /* Retrock.ttf in Resources */,
+				91B1927B27EBB50F00F50C60 /* ModernSans-Light.otf in Resources */,
 				9125AF5A27CFEE2300C1697E /* Hamish.otf in Resources */,
+				91B1928127EBC1DF00F50C60 /* aAkhirTahun.otf in Resources */,
 				91B1926D27DBF91100F50C60 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -325,6 +339,7 @@
 				9125AF5F27D2CB0600C1697E /* ImagePicker.swift in Sources */,
 				9145B3E327CAC72600800EE3 /* HonkView.swift in Sources */,
 				9145B3F427CACC2500800EE3 /* FeedModel.swift in Sources */,
+				91B1927727E2EE3500F50C60 /* PlaceHonks.swift in Sources */,
 				91B1927327DC02AF00F50C60 /* UserHonkRefs.swift in Sources */,
 				9145B3E527CAC73F00800EE3 /* MapView.swift in Sources */,
 				9145B3E727CAC74D00800EE3 /* ProfileView.swift in Sources */,
@@ -336,6 +351,7 @@
 				9145B40F27CC057500800EE3 /* UserUpdateModel.swift in Sources */,
 				9145B3E927CAC79000800EE3 /* FeedView.swift in Sources */,
 				9125AF5727CFE86300C1697E /* Extensions.swift in Sources */,
+				91B1927927E3C3BF00F50C60 /* Honk.swift in Sources */,
 				9145B3D227CABF4400800EE3 /* GaggleApp.swift in Sources */,
 				91B1927527DC02FD00F50C60 /* UserHonkRefsObs.swift in Sources */,
 				9145B3EF27CAC86700800EE3 /* WriteView.swift in Sources */,

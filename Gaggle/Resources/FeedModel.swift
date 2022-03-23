@@ -15,6 +15,7 @@ class FeedModel: ObservableObject {
     
     //@EnvironmentObject var memoryModel : MemoryModel
     @Published var feed = [HonkModel]()
+    @Published var urls: [String: String] = [:]
     @ObservedObject var user : UserUpdateModel
     @ObservedObject var userHonkRefsObs : UserHonkRefsObs
     
@@ -115,56 +116,69 @@ class FeedModel: ObservableObject {
                     self.user.addHonkRef(honkRef: docRef)
             }
         }
+//
+//    func getProfilePictureURL(honk: HonkModel){
+//        let storageRef = Storage.storage().reference(withPath: "/profilePictures/\(honk.authorID).jpeg")
+//        storageRef.downloadURL { (url, error) in
+//            if error != nil {
+//                 print((error?.localizedDescription)!)
+//                 return
+//            }
+//            honk.authorID = url?.absoluteString ?? ""
+//        }
+//    }
+//
+//    func getPictures(){
+//        for honk in self.feed {
+//            getProfilePictureURL(honk: honk)
+//        }
+//    }
     
     func getData(location: String) {
-
+        urls.removeAll()
         let db = Firestore.firestore()
-        var imageURL = ""
         
-        //order(by: "netLikes", descending: true).
-            
-        db.collection(location).getDocuments { snapshot, error in
-
-                if error == nil {
-                        if let snapshot = snapshot {
-                            if snapshot.documents.isEmpty{
-                                print("\(location) empty")
-                                db.collection(location).addDocument(
-                                    data: ["honk": "Be the first to post in this Gaggle!",
-                                           "authorName": "Gaggle",
-                                           "netLikes": 0,
-                                           "authorID": "VWVwY5GZ19b9Y4t9jTY5emndRTv2",
-                                           "datePosted": Date()])
-                            }
-                            else {
-                                DispatchQueue.main.async {
-                                    
-                                    self.feed = snapshot.documents.map { d in
-                                        let storageRef = Storage.storage().reference(withPath: "/profilePictures/\(d["authorID"] as? String ?? "default").jpeg")
-                                        storageRef.downloadURL { (url, error) in
-                                            if error != nil {
-                                                 print((error?.localizedDescription)!)
-                                                 return
-                                            }
-                                            imageURL = url?.absoluteString ?? "unknown"
-                                            //print(imageURL)
-                                        }
-                                        
-                                        return HonkModel(id: d.documentID,
-                                                         honk: d["honk"] as? String ?? "",
-                                                         netLikes: d["netLikes"] as? Int ?? 0,
-                                                         authorID: d["authorID"] as? String ?? "",
-                                                         authorName: d["authorName"] as? String ?? "",
-                                                         datePosted: d["datePosted"] as? Date ?? Date(),
-                                                         imageURL: imageURL)
-                                    }
-                                }
-                            }
-                        }
+        db.collection(location)
+            .addSnapshotListener { querySnapshot, error in
+                guard let documents = querySnapshot?.documents else {
+                    print("Error fetching documents: \(error!)")
+                    return
                 }
-                else {
-                    //print(error)
+                self.feed = documents.map { d in
+                    return HonkModel(id: d.documentID,
+                                honk: d["honk"] as? String ?? "",
+                                netLikes: d["netLikes"] as? Int ?? 0,
+                                authorID: d["authorID"] as? String ?? "",
+                                authorName: d["authorName"] as? String ?? "",
+                                datePosted: d["datePosted"] as? Date ?? Date(),
+                                imageURL: "")
                 }
+            }
+        
+        
+        for honk in feed {
+            if urls[honk.id] == nil {
+                getURL(authorID: honk.authorID)
+            }
+        }
+    }
+    
+    func getURL(authorID: String){
+        let storageRef = Storage.storage().reference(withPath: "/profilePictures/\(authorID).jpeg")
+        storageRef.downloadURL { (url, error) in
+            if error != nil {
+                 print((error?.localizedDescription)!)
+                 let storageRef = Storage.storage().reference(withPath: "/profilePictures/default.jpeg")
+                 storageRef.downloadURL { (url, error) in
+                 if error != nil {
+                      print((error?.localizedDescription)!)
+                      return
+                 }
+                 self.urls[authorID] = url?.absoluteString ?? ""
+                 return
+             }
+            }
+            self.urls[authorID] = url?.absoluteString ?? ""
         }
     }
 }
