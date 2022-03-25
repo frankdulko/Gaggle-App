@@ -1,4 +1,23 @@
 # Gaggle
+WEEK 7:
+
+Continued optimizing UI.
+
+Created a popover menu.
+
+Furthered understanding of "Published" and "Observed" variables and how they work.
+(.onAppear is not reloaded when an observed variable changes)
+Fixed issue with location updating.
+
+Optimized the map and the map view. Took out all unnecessary functionality. Took out all user interaction with map. Added annotations with custom marker.
+
+Added snapshot listener to firestore database which ended up working and integrating seamlessly. Actually was surprised by this.
+
+Finally think I have profile pictures working on all views. (Not entierly sure if it is optimized for reads).
+Took several attempts to manage aceessing the data outside of closure.
+
+Need to update security rules for Firestore.
+
  
 WEEK 6:
 Streamlined UI
