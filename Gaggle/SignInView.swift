@@ -92,7 +92,6 @@ struct SignInView: View {
                     print("User signed in")
                     userModel.setUser()
                     userModel.getProfilePictureURL()
-                    userModel.getHonks()
                     userHonkRefsObs.getUserHonkRefs()
                     signInProcessing = false
                     withAnimation {

@@ -20,7 +20,6 @@ class UserUpdateModel: ObservableObject {
     init(){
         print("User update model init")
         setUser()
-        getHonks()
     }
     
     func addDislikes(honk: HonkModel){
@@ -59,72 +58,7 @@ class UserUpdateModel: ObservableObject {
         setUser()
     }
     
-    func addHonk(honk: String){
-        let uid = firuser.id
-        let db = Firestore.firestore()
-        db.collection("Users").document(uid).updateData(["honks": FieldValue.arrayUnion([honk])])
-        setUser()
-    }
-    
-    func addHonkRef(honkRef: DocumentReference){
-        let uid = firuser.id
-        let db = Firestore.firestore()
-        db.collection("Users").document(uid).updateData(["honkRefs": FieldValue.arrayUnion([honkRef])])
-    }
-    
-    func getHonks(){
-        self.userHonks = [HonkModel]()
-        for honkRef in self.firuser.honkRefs {
-            honkRef.getDocument { (doc, error) in
-                guard error == nil else {
-                    print("error", error ?? "")
-                    return
-                }
-
-                if let doc = doc, doc.exists {
-                    let data = doc.data()
-                    if let data = data {
-                        //GETTING HERE
-                        self.userHonks.append(HonkModel(id: doc.documentID,
-                                                        honk: data["honk"] as? String ?? "",
-                                                        netLikes: data["netLikes"] as? Int ?? 0,
-                                                        authorID: data["authorID"] as? String ?? "",
-                                                        authorName: data["authorName"] as? String ?? "",
-                                                        datePosted: data["datePosted"] as? Date ?? Date(),
-                                                        imageURL: ""))
-                    }
-                }
-            }
-            
-        }
-        print(userHonks.count)
-    }
-        
-        
-//        var returnHonk = HonkModel(id: "", honk: "", netLikes: 0, authorID: "", authorName: "", datePosted: Date(), imageURL: "")
-//        honkRef.getDocument { (doc, error) -> HonkModel in
-//            guard error == nil else {
-//                print("error", error ?? "")
-//                return
-//            }
-//
-//            if let doc = doc, doc.exists {
-//                let data = doc.data()
-//                if let data = data {
-//                    //GETTING HERE
-//                    returnHonk =  HonkModel(id: doc.documentID,
-//                                     honk: data["honk"] as? String ?? "",
-//                                     netLikes: data["netLikes"] as? Int ?? 0,
-//                                     authorID: data["authorID"] as? String ?? "",
-//                                     authorName: data["authorName"] as? String ?? "",
-//                                     datePosted: data["datePosted"] as? Date ?? Date(),
-//                                     imageURL: "")
-//                }
-//            }
-//        }
-//        return returnHonk
-   // }
-    
+    //GET USER'S PROFILE PICTURE URL WHEN THE SIGN IN
     func getProfilePictureURL(){
         let uid = Auth.auth().currentUser?.uid ?? ""
         print(uid)
@@ -147,6 +81,9 @@ class UserUpdateModel: ObservableObject {
         }
     }
     
+    
+    //UPDATES THE USER'S PROFILE PICTURE IN DATABASE
+    //UPDATES USER'S PROFILE PICTURE URL LOCALLY
     func newProfilePicture(image: UIImage){
         print("Updating Profile Picture")
         let storage = Storage.storage()
@@ -183,6 +120,8 @@ class UserUpdateModel: ObservableObject {
 
     }
     
+    //WHEN USER CREATES AN ACCOUNT, ADD INFORMATION TO FIRESTORE
+    //THEN CALL SET USER
     func addUser(displayName: String){
         let uid = Auth.auth().currentUser?.uid ?? ""
         let db = Firestore.firestore()
@@ -202,12 +141,12 @@ class UserUpdateModel: ObservableObject {
         setUser()
     }
     
+    //WHEN USER SIGNS IN, GET THEIR INFORMATION AND STORE IT LOCALLY
+    //CALLED WHEN USER SIGNS IN OR AFTER ACCOUNT IS CREATED
     func setUser() {
         
         let uid = Auth.auth().currentUser?.uid ?? ""
-        
         if uid != "" {
-        
             let db = Firestore.firestore()
             let docRef = db.collection("Users").document(uid)
 

@@ -49,7 +49,6 @@ struct WriteView: View {
             HStack{
                 Spacer()
                 Button {
-                    userModel.addHonk(honk: post)
                     model.addData(name: post, location: memoryModel.user.location)
                     presentationMode.wrappedValue.dismiss()
                 } label: {

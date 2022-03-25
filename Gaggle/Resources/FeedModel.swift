@@ -25,23 +25,11 @@ class FeedModel: ObservableObject {
         self.userHonkRefsObs = userHonkRefsObs
     }
     
-//    func getProfilePictureURL(honk: HonkModel) -> URL{
-//        var downloadURL = URL(string: "default.jpg")
-//        let storageRef = Storage.storage().reference(withPath: "/profilePictures/\(honk.authorID).jpeg")
-//        storageRef.downloadURL { (url, error) in
-//            if error != nil {
-//                 print((error?.localizedDescription)!)
-//                 return
-//            }
-//            downloadURL = url ?? URL(string: "default.jpg")
-//        }
-//        return downloadURL!
-//    }
-    
     func findIndex(id: String) -> Int? {
         return feed.firstIndex { item in item.id == id }
     }
     
+    //INCREMENT NETLIKES OF POST IN DATABASE AND LOCALLY
     func addLike(honk: HonkModel, location: String){
         let db = Firestore.firestore()
         db.collection(location).document(honk.id).updateData(["netLikes": FieldValue.increment(Int64(1))])
@@ -50,6 +38,7 @@ class FeedModel: ObservableObject {
         }
     }
     
+    //DECREMENT NETLIKES OF POST IN DATABASE AND LOCALLY
     func addDislike(honk: HonkModel, location: String){
         let db = Firestore.firestore()
         db.collection(location).document(honk.id).updateData(["netLikes": FieldValue.increment(Int64(-1))])
@@ -58,29 +47,14 @@ class FeedModel: ObservableObject {
         }
     }
     
-    func updateNetLikes(honkToUpdate: HonkModel, location: String) {
-            
-            // Get a reference to the database
-            let db = Firestore.firestore()
-        
-            
-            // Set the data to update
-            db.collection(location).document(honkToUpdate.id).setData(["netLikes": honkToUpdate.netLikes], merge: true) { error in
-                
-                // Check for errors
-                if error == nil {
-                    // Get the new data
-                    self.getData(location: location)
-                }
-            }
-        }
-    
+    //ADD POST TO DATABASE
     func addData(name: String, location: String) {
             
         // Get a reference to the database
         let db = Firestore.firestore()
         var docRef : DocumentReference
         // Add a document to a collection
+        //SAVE REFERNECE
         docRef = db.collection(location).addDocument(data: ["honk":name,
                                                             "netLikes": 0,
                                                             "authorID": user.firuser.id,
@@ -97,47 +71,22 @@ class FeedModel: ObservableObject {
                                                                 }
             }
         
+        //UPDATE USER'S POST REFERENCES LOCALLY AND IN DATABASE
         userHonkRefsObs.addUserHonkRef(honkRef: docRef)
+        //UPDATE USER'S POSTS LOCALLY
         userHonkRefsObs.addUserHonk(userHonk: HonkModel(id: docRef.documentID, honk: name, netLikes: 0, authorID: user.firuser.id, authorName: user.firuser.displayName, datePosted: Date(), imageURL: user.firuser.profilePictureURL))
-        
-        
-        
-        
-        
-//        user.userHonks.append(HonkModel(id: docRef.documentID, honk: name, netLikes: 0, authorID: user.firuser.id, authorName: user.firuser.displayName, datePosted: Date(), imageURL: user.firuser.profilePictureURL?.absoluteString ?? ""))
-        
-//        userHonkRefsObs.userHonkRefs.append(UserHonkRefs(id: UUID(), honkRef: docRef))
-//        userHonkRefsObs.userHonks.append(HonkModel(id: docRef.documentID, honk: name, netLikes: 0, authorID: user.firuser.id, authorName: user.firuser.displayName, datePosted: Date(), imageURL: user.firuser.profilePictureURL?.absoluteString ?? ""))
-        
-        
-        
-            
-            if (docRef != nil){
-                    self.user.addHonkRef(honkRef: docRef)
-            }
-        }
-//
-//    func getProfilePictureURL(honk: HonkModel){
-//        let storageRef = Storage.storage().reference(withPath: "/profilePictures/\(honk.authorID).jpeg")
-//        storageRef.downloadURL { (url, error) in
-//            if error != nil {
-//                 print((error?.localizedDescription)!)
-//                 return
-//            }
-//            honk.authorID = url?.absoluteString ?? ""
-//        }
-//    }
-//
-//    func getPictures(){
-//        for honk in self.feed {
-//            getProfilePictureURL(honk: honk)
-//        }
-//    }
+    }
     
+    //GET POSTS WHEN USER CHECKS IN TO SPECIFIC LOCATION
     func getData(location: String) {
+        //clear the stored profile picture urls from previous check ins.
         urls.removeAll()
         let db = Firestore.firestore()
         
+        //add listener to location
+        //updates whenever collection changes
+        //which causes published variable feed to update
+        //which causes any view observing this variable to update
         db.collection(location)
             .addSnapshotListener { querySnapshot, error in
                 guard let documents = querySnapshot?.documents else {
@@ -155,14 +104,17 @@ class FeedModel: ObservableObject {
                 }
             }
         
-        
+        //for every post at this location, get the user's profile picture url
         for honk in feed {
+            //no need to get a user's profile picture url more than once if they have multiple posts
             if urls[honk.id] == nil {
                 getURL(authorID: honk.authorID)
             }
         }
     }
     
+    //GET PROFILE PICTURE URL OF A USER WITH THEIR ID
+    //IF THEY DON'T HAVE ONE, USE DEFAULT
     func getURL(authorID: String){
         let storageRef = Storage.storage().reference(withPath: "/profilePictures/\(authorID).jpeg")
         storageRef.downloadURL { (url, error) in
