@@ -9,7 +9,7 @@ Furthered understanding of "Published" and "Observed" variables and how they wor
 (.onAppear is not reloaded when an observed variable changes)
 Fixed issue with location updating.
 
-Optimized the map and the map view. Took out all unnecessary functionality. Took out all user interaction with map. Added annotations with custom marker.
+Optimized the map and the map view. Took out all unnecessary functionality. Took out all user interaction with map. Added annotations with custom marker. Used significant location changes instead of constant monitoring for more optimization.
 
 Added snapshot listener to firestore database which ended up working and integrating seamlessly. Actually was surprised by this.
 
