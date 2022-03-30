@@ -22,13 +22,22 @@ class UserUpdateModel: ObservableObject {
         setUser()
     }
     
+    func findIndexDislikes(id: String) -> Int? {
+        return firuser.dislikes.firstIndex { item in item == id }
+    }
+    
+    func findIndexLikes(id: String) -> Int? {
+        return firuser.likes.firstIndex { item in item == id }
+    }
+    
     func addDislikes(honk: HonkModel){
         let uid = firuser.id
         let db = Firestore.firestore()
         db.collection("Users").document(uid).updateData(["dislikes": FieldValue.arrayUnion([honk.id])])
         db.collection("Users").document(honk.authorID).updateData(["karma": FieldValue.increment(Int64(-1))])
+        firuser.dislikes.append(honk.id)
         print("ADDING DISLIKE")
-        setUser()
+        //setUser()
     }
     
     func deleteDislike(honk: HonkModel){
@@ -36,8 +45,11 @@ class UserUpdateModel: ObservableObject {
         let db = Firestore.firestore()
         db.collection("Users").document(uid).updateData(["dislikes": FieldValue.arrayRemove([honk.id])])
         db.collection("Users").document(honk.authorID).updateData(["karma": FieldValue.increment(Int64(1))])
+        if let index = findIndexDislikes(id: honk.id) {
+            firuser.dislikes.remove(at: index)
+        }
         print("DELETING DISLIKE")
-        setUser()
+        //setUser()
     }
     
     func addLikes(honk: HonkModel){
@@ -45,8 +57,9 @@ class UserUpdateModel: ObservableObject {
         let db = Firestore.firestore()
         db.collection("Users").document(uid).updateData(["likes": FieldValue.arrayUnion([honk.id])])
         db.collection("Users").document(honk.authorID).updateData(["karma": FieldValue.increment(Int64(1))])
+        firuser.likes.append(honk.id)
         print("ADDING LIKE")
-        setUser()
+        //setUser()
     }
     
     func deleteLike(honk: HonkModel){
@@ -54,8 +67,11 @@ class UserUpdateModel: ObservableObject {
         let db = Firestore.firestore()
         db.collection("Users").document(uid).updateData(["likes": FieldValue.arrayRemove([honk.id])])
         db.collection("Users").document(honk.authorID).updateData(["karma": FieldValue.increment(Int64(-1))])
+        if let index = findIndexLikes(id: honk.id) {
+            firuser.likes.remove(at: index)
+        }
         print("DELETING LIKE")
-        setUser()
+        //setUser()
     }
     
     //GET USER'S PROFILE PICTURE URL WHEN THE SIGN IN

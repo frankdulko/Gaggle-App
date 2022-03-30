@@ -28,9 +28,8 @@ struct WriteView: View {
                     presentationMode.wrappedValue.dismiss()
                 } label: {
                     Text("CANCEL")
+                        .font(Font.custom("CreatoDisplay-Bold", size: 14))
                         .foregroundColor(.black)
-                        .fontWeight(.heavy)
-                        .font(.caption2)
                 }
                 .padding()
                 //.background(Color(UIColor.systemRed).cornerRadius(10))
@@ -39,6 +38,7 @@ struct WriteView: View {
             }
             TextEditor(text: $post)
                 .padding()
+                .font(Font.custom("CreatoDisplay-Bold", size: 18))
                 .frame(width: UIScreen.main.bounds.width-50, height: 150)
                 .background(Color.white.cornerRadius(20))
                 .onTapGesture {
@@ -49,21 +49,19 @@ struct WriteView: View {
             HStack{
                 Spacer()
                 Button {
-                    model.addData(name: post, location: memoryModel.user.location)
+                    model.addData(name: post, location: memoryModel.user.collection)
                     presentationMode.wrappedValue.dismiss()
                 } label: {
-                    Text("Send")
+                    Text("POST")
+                        .font(Font.custom("CreatoDisplay-Black", size: 20))
                         .foregroundColor(Color.gaggleGray)
-                        .fontWeight(.semibold)
-                    Image(systemName: "arrow.up")
-                        .foregroundColor(.black)
+                        .padding([.leading,.trailing])
+                        .padding([.top, .bottom], 5)
                 }
-                .padding()
                 .background(
-                    Color.gaggleGreen.cornerRadius(10)
+                    LinearGradient(colors: [Color.gaggleGreen, Color.gaggleYellow], startPoint: .bottomLeading, endPoint: .topTrailing).cornerRadius(10)
                 )
                 .padding()
-                .cornerRadius(10)
             }
             Spacer()
         }

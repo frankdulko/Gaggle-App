@@ -7,10 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		911A448227EE2A5A006629C3 /* LouisGeorgeCafeBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 911A448127EE2A5A006629C3 /* LouisGeorgeCafeBold.ttf */; };
+		911A448427EE2A6B006629C3 /* LouisGeorgeCafe.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 911A448327EE2A6B006629C3 /* LouisGeorgeCafe.ttf */; };
+		91226BC527F226B8008F9F5C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 91226BC427F226B8008F9F5C /* GoogleService-Info.plist */; };
 		9125AF5727CFE86300C1697E /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9125AF5627CFE86300C1697E /* Extensions.swift */; };
 		9125AF5A27CFEE2300C1697E /* Hamish.otf in Resources */ = {isa = PBXBuildFile; fileRef = 9125AF5927CFEE2300C1697E /* Hamish.otf */; };
-		9125AF5D27CFF0EE00C1697E /* Retrock.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9125AF5C27CFF0EE00C1697E /* Retrock.ttf */; };
 		9125AF5F27D2CB0600C1697E /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9125AF5E27D2CB0600C1697E /* ImagePicker.swift */; };
+		91306DBB27F3AC8A005809F6 /* CreatoDisplay-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 91E346B827F11733001DFC91 /* CreatoDisplay-Black.otf */; };
 		9145B3D227CABF4400800EE3 /* GaggleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9145B3D127CABF4400800EE3 /* GaggleApp.swift */; };
 		9145B3D427CABF4400800EE3 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9145B3D327CABF4400800EE3 /* ContentView.swift */; };
 		9145B3D627CABF4600800EE3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9145B3D527CABF4600800EE3 /* Assets.xcassets */; };
@@ -22,7 +25,6 @@
 		9145B3EF27CAC86700800EE3 /* WriteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9145B3EE27CAC86700800EE3 /* WriteView.swift */; };
 		9145B3F227CACB9300800EE3 /* HonkModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9145B3F127CACB9300800EE3 /* HonkModel.swift */; };
 		9145B3F427CACC2500800EE3 /* FeedModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9145B3F327CACC2500800EE3 /* FeedModel.swift */; };
-		9145B3F827CAD29400800EE3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9145B3F727CAD29400800EE3 /* GoogleService-Info.plist */; };
 		9145B40127CAE42B00800EE3 /* MemoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9145B40027CAE42B00800EE3 /* MemoryModel.swift */; };
 		9145B40527CBE2E700800EE3 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9145B40427CBE2E700800EE3 /* SignInView.swift */; };
 		9145B40727CBF1DE00800EE3 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9145B40627CBF1DE00800EE3 /* SignUpView.swift */; };
@@ -31,21 +33,25 @@
 		9145B40D27CC04CF00800EE3 /* FIRUserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9145B40C27CC04CF00800EE3 /* FIRUserModel.swift */; };
 		9145B40F27CC057500800EE3 /* UserUpdateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9145B40E27CC057500800EE3 /* UserUpdateModel.swift */; };
 		91B1926B27D680E900F50C60 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91B1926A27D680E900F50C60 /* SettingsView.swift */; };
-		91B1926D27DBF91100F50C60 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 91B1926C27DBF91100F50C60 /* GoogleService-Info.plist */; };
 		91B1927327DC02AF00F50C60 /* UserHonkRefs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91B1927227DC02AF00F50C60 /* UserHonkRefs.swift */; };
 		91B1927527DC02FD00F50C60 /* UserHonkRefsObs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91B1927427DC02FD00F50C60 /* UserHonkRefsObs.swift */; };
 		91B1927B27EBB50F00F50C60 /* ModernSans-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 91B1927A27EBB50F00F50C60 /* ModernSans-Light.otf */; };
 		91B1928127EBC1DF00F50C60 /* aAkhirTahun.otf in Resources */ = {isa = PBXBuildFile; fileRef = 91B1928027EBC1DF00F50C60 /* aAkhirTahun.otf */; };
+		91E346B227F11432001DFC91 /* creato_display in Resources */ = {isa = PBXBuildFile; fileRef = 91E346B127F11432001DFC91 /* creato_display */; };
+		91E346B527F11602001DFC91 /* CreatoDisplay-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 91E346B427F11602001DFC91 /* CreatoDisplay-Regular.otf */; };
+		91E346B727F1162E001DFC91 /* CreatoDisplay-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 91E346B627F11629001DFC91 /* CreatoDisplay-Bold.otf */; };
 		E842C743D98002CCB419A90B /* Pods_Gaggle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 78ECD182FC631362CFEF7F7A /* Pods_Gaggle.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		78ECD182FC631362CFEF7F7A /* Pods_Gaggle.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Gaggle.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		824985B1B54BFD60EC94038E /* Pods-Gaggle.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Gaggle.release.xcconfig"; path = "Target Support Files/Pods-Gaggle/Pods-Gaggle.release.xcconfig"; sourceTree = "<group>"; };
+		911A448127EE2A5A006629C3 /* LouisGeorgeCafeBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = LouisGeorgeCafeBold.ttf; sourceTree = "<group>"; };
+		911A448327EE2A6B006629C3 /* LouisGeorgeCafe.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = LouisGeorgeCafe.ttf; sourceTree = "<group>"; };
+		91226BC427F226B8008F9F5C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Desktop/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9125AF5627CFE86300C1697E /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		9125AF5927CFEE2300C1697E /* Hamish.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Hamish.otf; sourceTree = "<group>"; };
 		9125AF5B27CFEE3F00C1697E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		9125AF5C27CFF0EE00C1697E /* Retrock.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Retrock.ttf; sourceTree = "<group>"; };
 		9125AF5E27D2CB0600C1697E /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		9145B3CE27CABF4400800EE3 /* Gaggle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Gaggle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9145B3D127CABF4400800EE3 /* GaggleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GaggleApp.swift; sourceTree = "<group>"; };
@@ -59,7 +65,6 @@
 		9145B3EE27CAC86700800EE3 /* WriteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteView.swift; sourceTree = "<group>"; };
 		9145B3F127CACB9300800EE3 /* HonkModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HonkModel.swift; sourceTree = "<group>"; };
 		9145B3F327CACC2500800EE3 /* FeedModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedModel.swift; sourceTree = "<group>"; };
-		9145B3F727CAD29400800EE3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9145B40027CAE42B00800EE3 /* MemoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryModel.swift; sourceTree = "<group>"; };
 		9145B40427CBE2E700800EE3 /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
 		9145B40627CBF1DE00800EE3 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
@@ -68,11 +73,14 @@
 		9145B40C27CC04CF00800EE3 /* FIRUserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FIRUserModel.swift; sourceTree = "<group>"; };
 		9145B40E27CC057500800EE3 /* UserUpdateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserUpdateModel.swift; sourceTree = "<group>"; };
 		91B1926A27D680E900F50C60 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
-		91B1926C27DBF91100F50C60 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		91B1927227DC02AF00F50C60 /* UserHonkRefs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserHonkRefs.swift; sourceTree = "<group>"; };
 		91B1927427DC02FD00F50C60 /* UserHonkRefsObs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserHonkRefsObs.swift; sourceTree = "<group>"; };
 		91B1927A27EBB50F00F50C60 /* ModernSans-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ModernSans-Light.otf"; sourceTree = "<group>"; };
 		91B1928027EBC1DF00F50C60 /* aAkhirTahun.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = aAkhirTahun.otf; sourceTree = "<group>"; };
+		91E346B127F11432001DFC91 /* creato_display */ = {isa = PBXFileReference; lastKnownFileType = folder; path = creato_display; sourceTree = "<group>"; };
+		91E346B427F11602001DFC91 /* CreatoDisplay-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "CreatoDisplay-Regular.otf"; path = "../../../../../Downloads/creato_display/CreatoDisplay-Regular.otf"; sourceTree = "<group>"; };
+		91E346B627F11629001DFC91 /* CreatoDisplay-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CreatoDisplay-Bold.otf"; sourceTree = "<group>"; };
+		91E346B827F11733001DFC91 /* CreatoDisplay-Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CreatoDisplay-Black.otf"; sourceTree = "<group>"; };
 		94EF5D604831EE138FFF1DB8 /* Pods-Gaggle.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Gaggle.debug.xcconfig"; path = "Target Support Files/Pods-Gaggle/Pods-Gaggle.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -111,7 +119,12 @@
 				9125AF5927CFEE2300C1697E /* Hamish.otf */,
 				91B1927A27EBB50F00F50C60 /* ModernSans-Light.otf */,
 				91B1928027EBC1DF00F50C60 /* aAkhirTahun.otf */,
-				9125AF5C27CFF0EE00C1697E /* Retrock.ttf */,
+				911A448127EE2A5A006629C3 /* LouisGeorgeCafeBold.ttf */,
+				91E346B427F11602001DFC91 /* CreatoDisplay-Regular.otf */,
+				91E346B627F11629001DFC91 /* CreatoDisplay-Bold.otf */,
+				91E346B827F11733001DFC91 /* CreatoDisplay-Black.otf */,
+				911A448327EE2A6B006629C3 /* LouisGeorgeCafe.ttf */,
+				91E346B127F11432001DFC91 /* creato_display */,
 			);
 			path = Fonts;
 			sourceTree = "<group>";
@@ -142,9 +155,8 @@
 				9145B3F027CACB7800800EE3 /* Resources */,
 				9145B3E127CAC6EE00800EE3 /* TabView */,
 				9145B3D127CABF4400800EE3 /* GaggleApp.swift */,
+				91226BC427F226B8008F9F5C /* GoogleService-Info.plist */,
 				9145B3D527CABF4600800EE3 /* Assets.xcassets */,
-				9145B3F727CAD29400800EE3 /* GoogleService-Info.plist */,
-				91B1926C27DBF91100F50C60 /* GoogleService-Info.plist */,
 				9145B3D727CABF4600800EE3 /* Preview Content */,
 				9145B40427CBE2E700800EE3 /* SignInView.swift */,
 				9145B40627CBF1DE00800EE3 /* SignUpView.swift */,
@@ -270,12 +282,16 @@
 			files = (
 				9145B3D927CABF4600800EE3 /* Preview Assets.xcassets in Resources */,
 				9145B3D627CABF4600800EE3 /* Assets.xcassets in Resources */,
-				9145B3F827CAD29400800EE3 /* GoogleService-Info.plist in Resources */,
-				9125AF5D27CFF0EE00C1697E /* Retrock.ttf in Resources */,
+				911A448227EE2A5A006629C3 /* LouisGeorgeCafeBold.ttf in Resources */,
+				91E346B527F11602001DFC91 /* CreatoDisplay-Regular.otf in Resources */,
+				911A448427EE2A6B006629C3 /* LouisGeorgeCafe.ttf in Resources */,
 				91B1927B27EBB50F00F50C60 /* ModernSans-Light.otf in Resources */,
 				9125AF5A27CFEE2300C1697E /* Hamish.otf in Resources */,
+				91E346B227F11432001DFC91 /* creato_display in Resources */,
+				91306DBB27F3AC8A005809F6 /* CreatoDisplay-Black.otf in Resources */,
+				91226BC527F226B8008F9F5C /* GoogleService-Info.plist in Resources */,
 				91B1928127EBC1DF00F50C60 /* aAkhirTahun.otf in Resources */,
-				91B1926D27DBF91100F50C60 /* GoogleService-Info.plist in Resources */,
+				91E346B727F1162E001DFC91 /* CreatoDisplay-Bold.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -484,23 +500,25 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Gaggle/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Gaggl;
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.frankdulko.gaggle;
+				MARKETING_VERSION = 0.1.2;
+				PRODUCT_BUNDLE_IDENTIFIER = com.frankdulko.gaggl;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -517,23 +535,25 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Gaggle/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Gaggl;
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.frankdulko.gaggle;
+				MARKETING_VERSION = 0.1.2;
+				PRODUCT_BUNDLE_IDENTIFIER = com.frankdulko.gaggl;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

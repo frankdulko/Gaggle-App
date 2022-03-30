@@ -22,29 +22,35 @@ struct FeedView: View {
                         gaggleTitleView()
                         HStack{
                             Spacer()
-                            Text(memoryModel.user.location)
-                                .font(Font.custom("aAkhirTahun", size: 18))
-                                .padding()
-                            Spacer()
-                            Menu{
-                                Text("Sort by:")
-                                Button {
-                                    
-                                } label: {
-                                    Text("New")
-                                }
-                                Button {
-                                    
-                                } label: {
-                                    Text("Top")
-                                }
-                            } label: {
-                                Image(systemName: "line.3.horizontal")
-                                    .resizable()
-                                    .frame(width: 25, height: 15)
-                                    .foregroundColor(.black)
+                            HStack{
+                                Text(memoryModel.user.location + " Honks")
+                                    .foregroundColor(Color.gaggleGray)
+                                    .multilineTextAlignment(.center)
+                                    .font(Font.custom("CreatoDisplay-Black", size: 24))
+                                    .padding()
                             }
-                            .padding()
+                            .frame(width: 350, height: .none)
+                            .background(LinearGradient(colors: [Color.gaggleGreen, Color.gaggleYellow], startPoint: .bottomLeading, endPoint: .topTrailing).cornerRadius(10))
+                            Spacer()
+//                            Menu{
+//                                Text("Sort by:")
+//                                Button {
+//
+//                                } label: {
+//                                    Text("New")
+//                                }
+//                                Button {
+//
+//                                } label: {
+//                                    Text("Top")
+//                                }
+//                            } label: {
+//                                Image(systemName: "line.3.horizontal")
+//                                    .resizable()
+//                                    .frame(width: 25, height: 15)
+//                                    .foregroundColor(.black)
+//                            }
+//                            .padding()
                         }
                         ScrollView{
                                 VStack{
@@ -61,7 +67,7 @@ struct FeedView: View {
                         gaggleTitleView()
                         Spacer()
                         Text("Join a Gaggle")
-                            .font(Font.largeTitle)
+                            .font(Font.custom("LouisGeorgeCafeBold", size: 36))
                             .padding()
                             .multilineTextAlignment(.center)
                         Spacer()

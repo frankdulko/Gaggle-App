@@ -93,6 +93,7 @@ struct SignInView: View {
                     userModel.setUser()
                     userModel.getProfilePictureURL()
                     userHonkRefsObs.getUserHonkRefs()
+                    //userHonkRefsObs.getLikedHonkRefs()
                     signInProcessing = false
                     withAnimation {
                         viewRouter.currentPage = .homePage

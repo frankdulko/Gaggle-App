@@ -14,6 +14,7 @@ struct MapView: View {
     @State private var tapped: Bool = false
     @State private var showJoinView: Bool = false
     @State private var selection = ""
+    @State private var collection = ""
     @ObservedObject var currentLocation : LocationManager
     @ObservedObject var feedModel : FeedModel
     
@@ -33,38 +34,85 @@ struct MapView: View {
                         PinAnnotationMapView(places: significantPlaces, region: region)
                             .frame(width: 350, height: 350)
                             .cornerRadius(20)
-//DEBUG LOCATION
-//                        Text("locations = \(currentLocation.location.location.latitude) \(currentLocation.location.location.longitude)")
-                        Spacer()
-                            List{
-                                ForEach(significantPlaces) { place in
-                                    HStack{
-                                        Text(place.name)
-                                        Spacer()
-                                        Button {
-                                            selection = place.name
-                                            withAnimation {
-                                                showJoinView.toggle()
-                                            }
-                                        } label: {
-                                            Text("")
+                        ScrollView{
+                            ForEach(significantPlaces) { place in
+                                HStack{
+                                    Spacer()
+                                    Button {
+                                        selection = place.name
+                                        collection = place.collection
+                                        withAnimation {
+                                            showJoinView.toggle()
                                         }
+                                    } label: {
+                                        HStack{
+                                            Text(place.name)
+                                                .font(Font.custom("CreatoDisplay-Black", size: 18))
+                                                .padding()
+                                        }
+                                        .frame(width: 350, height: .none)
+                                        .background(Color(UIColor.systemGray6).cornerRadius(10))
+                                        .padding([.top,.bottom], 5)
+                                        .opacity(0.95)
                                     }
+                                    Spacer()
                                 }
                             }
-                            .listStyle(.plain)
+                        }
+//DEBUG LOCATION
+//                        Text("locations = \(currentLocation.location.location.latitude) \(currentLocation.location.location.longitude)")
+//                        VStack(alignment: .center){
+//                            ScrollView{
+//                                ForEach(significantPlaces) { place in
+//                                    Button {
+//                                        selection = place.name
+//                                        collection = place.collection
+//                                        withAnimation {
+//                                            showJoinView.toggle()
+//                                        }
+//                                    } label: {
+//                                        Text(place.name)
+//                                            .font(Font.custom("CreatoDisplay-Black", size: 18))
+//                                            .padding()
+//                                            .background(Color.gray.cornerRadius(10))
+//                                    }
+//                                    .padding()
+//
+//                                }
+//                            }
+//                        }
+//                            List{
+//                                ForEach(significantPlaces) { place in
+//                                    HStack{
+//                                        Text(place.name)
+//                                            .font(Font.custom("CreatoDisplay-Bold", size: 18))
+//                                        Spacer()
+//                                        Button {
+//                                            selection = place.name
+//                                            collection = place.collection
+//                                            withAnimation {
+//                                                showJoinView.toggle()
+//                                            }
+//                                        } label: {
+//                                            Text("")
+//                                        }
+//                                    }
+//                                }
+//                            }
+//                            .listStyle(.plain)
                     }
                 if showJoinView {
                     VStack{
                         Spacer()
                             VStack{
                             Text("Join \(selection)?")
-                                .fontWeight(.bold)
+                                .font(Font.custom("CreatoDisplay-Bold", size: 24))
+                                .multilineTextAlignment(.center)
                             Button {
                                 memoryModel.user.location = selection
+                                memoryModel.user.collection = collection
                                 memoryModel.user.checkedIn = true
-                                feedModel.getData(location: selection)
-                                print(feedModel.urls)
+                                feedModel.getData(location: collection)
                                 withAnimation {
                                     showJoinView.toggle()
                                 }
@@ -72,7 +120,7 @@ struct MapView: View {
                                 Text("Yes")
                                     .frame(width: UIScreen.main.bounds.width-50, height: 50)
                                     .background(LinearGradient(colors: [Color.gaggleGreen, Color.gaggleYellow], startPoint: .bottomLeading, endPoint: .topTrailing).cornerRadius(15))
-                                    .font(.title3)
+                                    .font(Font.custom("CreatoDisplay-Regular", size: 24))
                                     .foregroundColor(.black)
                             }
                             Button {
@@ -83,7 +131,7 @@ struct MapView: View {
                                 Text("No")
                                     .frame(width: UIScreen.main.bounds.width-50, height: 50)
                                     .background(Color(UIColor.systemGray5).cornerRadius(15))
-                                    .font(.title3)
+                                    .font(Font.custom("CreatoDisplay-Regular", size: 24))
                                     .foregroundColor(Color(UIColor.systemGray))
                             }
                         }
@@ -95,16 +143,13 @@ struct MapView: View {
                 }
             }
             .onAppear {
-                print("Map onAppear")
                 getSignificantPlaces()
-                checkedInManager()
             }
             .onDisappear {
-                checkedInManager()
             }
             .onChange(of: currentLocation.location) { newValue in
                 getSignificantPlaces()
-                print("Location Changed")
+                checkedInManager()
             }
     }
     
@@ -131,7 +176,7 @@ struct MapView: View {
                 
                 let mapItems = response.mapItems
                 self.significantPlaces = mapItems.map {
-                    SignificantPlace(lat: $0.placemark.coordinate.latitude, long: $0.placemark.coordinate.longitude, name: $0.placemark.name ?? "")
+                    SignificantPlace(lat: $0.placemark.coordinate.latitude, long: $0.placemark.coordinate.longitude, name: $0.placemark.name ?? "", street: $0.placemark.thoroughfare ?? "")
                 }
             }
             
@@ -190,12 +235,18 @@ struct SignificantPlace: Identifiable {
     let id: UUID
     let location: CLLocationCoordinate2D
     let name : String
-    init(id: UUID = UUID(), lat: Double, long: Double, name: String) {
+    let street : String
+    let collection : String
+    init(id: UUID = UUID(), lat: Double, long: Double, name: String, street: String) {
         self.id = id
         self.location = CLLocationCoordinate2D(
             latitude: lat,
             longitude: long)
         self.name = name
+        self.street = street
+        let nameNoSpaces = name.replacingOccurrences(of: " ", with: "")
+        let streetNoSpaces = street.replacingOccurrences(of: " ", with: "")
+        self.collection = nameNoSpaces + streetNoSpaces
     }
 }
 

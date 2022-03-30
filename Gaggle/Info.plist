@@ -5,8 +5,12 @@
 	<key>UIAppFonts</key>
 	<array>
 		<string>Hamish.otf</string>
-		<string>Retrock.ttf</string>
 		<string>aAkhirTahun.otf</string>
+		<string>LouisGeorgeCafeBold.ttf</string>
+		<string>LouisGeorgeCafe.ttf</string>
+		<string>CreatoDisplay-Regular.otf</string>
+		<string>CreatoDisplay-Bold.otf</string>
+		<string>CreatoDisplay-Black.otf</string>
 	</array>
 </dict>
 </plist>

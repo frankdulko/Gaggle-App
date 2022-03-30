@@ -6,13 +6,14 @@
 //
 
 import Foundation
+import FirebaseFirestore
 
 struct HonkModel: Identifiable{
     var id: String
+    var ref: DocumentReference
     var honk: String
     var netLikes: Int
     var authorID: String
     var authorName: String
-    var datePosted: Date
-    var imageURL: String
+    var datePosted: Timestamp
 }

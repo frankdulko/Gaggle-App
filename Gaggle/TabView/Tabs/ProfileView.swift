@@ -18,6 +18,9 @@ struct ProfileView: View {
     @State var signOutProcessing = false
     @State private var image = UIImage()
     @State private var showSheet = false
+    @State var honks = true
+    @State var likes = false
+    @State var dislikes = false
     
     @ObservedObject var userModel : UserUpdateModel
     @ObservedObject var feedModel : FeedModel
@@ -33,20 +36,30 @@ struct ProfileView: View {
                         .frame(width: 100, height: 100)
                         .clipShape(Circle())
                         .scaledToFill()
-                        
-        //            Text(userModel.firuser.displayName ?? "Frank")
-        //                .font(.system(size: 48))
-                    Text(userModel.firuser.displayName)
-                        .font(.system(size: 36))
+                    VStack(alignment: .leading){
+                        Text(userModel.firuser.displayName)
+                            .font(Font.custom("CreatoDisplay-Bold", size: 30))
+                            .padding()
+                        HStack{
+                            Spacer()
+                            VStack{
+                                Text("Honks")
+                                    .font(Font.custom("CreatoDisplay-Regular", size: 20))
+                                Text(String(userModel.firuser.honkRefs.count))
+                                    .font(Font.custom("aAkhirTahun", size: 20))
+                            }
+                            Spacer()
+                            VStack{
+                                Text("Score")
+                                    .font(Font.custom("CreatoDisplay-Regular", size: 20))
+                                Text(String(userModel.firuser.karma))
+                                    .font(Font.custom("aAkhirTahun", size: 20))
+
+                            }
+                            Spacer()
+                        }
+                    }
                     Spacer()
-//                    Menu(systemName: "gearshape"){
-//                        Button {
-//                            
-//                        } label: {
-//                            Text("Sign Out")
-//                        }
-//
-//                    }
                     Button {
                         withAnimation {
                             viewRouter.currentPage = .settingsPage
@@ -58,44 +71,68 @@ struct ProfileView: View {
                             .foregroundColor(.black)
                     }
 
-//                    if signOutProcessing {
-//                        ProgressView()
-//                    } else {
-//                        Button {
-//                            signOutUser()
-//                        } label: {
-//                            Text("Sign Out")
-//
-//                        }
-//                        .padding([.leading,.trailing], 10)
-//                    }
                 }
                 .padding([.leading, .trailing], 10)
-                HStack{
-                    Spacer()
-                    VStack{
-                        Text("Honks")
-                        Text(String(userModel.firuser.honkRefs.count))
-                    }
-                    Spacer()
-                    VStack{
-                        Text("Score")
-                        Text(String(userModel.firuser.karma))
-                    }
-                    Spacer()
-                }
-                .font(.title2)
-                //Image(systemName: memoryModel.user.profilePicture)
                 Divider()
                     .padding([.leading, .trailing], 10)
+                Text("Honks")
+                    .font(Font.custom("CreatoDisplay-Bold", size: 20))
+                Divider()
                 ScrollView{
-                        VStack{
-                            ForEach(userHonkRefsObs.userHonks, id: \.id) { honk in
-                                HonkView(honk: honk, userModel: userModel, model: feedModel)
-                            }
+                    VStack{
+                        ForEach(userHonkRefsObs.userHonks, id: \.id) { honk in
+                            HonkView(honk: honk, userModel: userModel, model: feedModel)
                         }
+                    }
                 }
-                Spacer()
+//                HStack{
+//                    Spacer()
+//                    Text("Honks")
+//                        .font(Font.custom("LouisGeorgeCafeBold", size: 20))
+//                        .background(honks ? .gray : .white)
+//                    Spacer()
+//                    Text("Likes")
+//                        .font(Font.custom("LouisGeorgeCafeBold", size: 20))
+//                        .background(likes ? .gray : .white)
+//                    Spacer()
+//                    Text("Dislikes")
+//                        .font(Font.custom("LouisGeorgeCafeBold", size: 20))
+//                        .background(dislikes ? .gray : .white)
+//                    Spacer()
+//                }
+//                TabView{
+//                    ScrollView{
+//                            VStack{
+//                                ForEach(userHonkRefsObs.userHonks, id: \.id) { honk in
+//                                    HonkView(honk: honk, userModel: userModel, model: feedModel)
+//                                }
+//                            }
+//                    }
+//                    .tabItem{}
+//                    .onAppear {
+//                        withAnimation{
+//                            honks = true
+//                            likes = false
+//                            dislikes = false
+//                        }
+//                    }
+//                    ScrollView{
+//                            VStack{
+//                                ForEach(userHonkRefsObs.likedHonks, id: \.id) { honk in
+//                                    HonkView(honk: honk, userModel: userModel, model: feedModel)
+//                                }
+//                            }
+//                    }
+//                    .tabItem {}
+//                    .onAppear {
+//                        withAnimation{
+//                            honks = false
+//                            likes = true
+//                            dislikes = false
+//                        }
+//                    }
+//                }
+//                .tabViewStyle(.page)
             }
             Button {
                 showSheet = true
@@ -109,10 +146,6 @@ struct ProfileView: View {
             .foregroundColor(.white)
             .position(x: 95, y: 165)
 
-        }
-        .onAppear {
-            //userModel.setUser(uid: Auth.auth().currentUser?.uid ?? "")
-            //userModel.getProfilePictureURL()
         }
         .sheet(isPresented: $showSheet) {
             ImagePicker(sourceType: .photoLibrary, selectedImage: self.$image, userModel: userModel)

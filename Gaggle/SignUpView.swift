@@ -98,6 +98,7 @@ struct SignUpView: View {
                     signUpProcessing = false
                 case .some(_):
                     userModel.addUser(displayName: displayName)
+                    userModel.getProfilePictureURL()
                     print("User created")
                     signUpProcessing = false
                     viewRouter.currentPage = .homePage
