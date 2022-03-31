@@ -148,7 +148,7 @@ struct ProfileView: View {
 
         }
         .sheet(isPresented: $showSheet) {
-            ImagePicker(sourceType: .photoLibrary, selectedImage: self.$image, userModel: userModel)
+            ImagePicker(sourceType: .photoLibrary, selectedImage: self.$image, userModel: userModel, feedModel: feedModel)
         }
     }
     

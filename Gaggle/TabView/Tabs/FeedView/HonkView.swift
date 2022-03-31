@@ -137,10 +137,14 @@ struct HonkView: View{
                     }
                     .padding()
                     Spacer()
-                    Text(honk.datePosted.dateValue().formatted(date: .abbreviated, time: .shortened))
-                        .font(Font.custom("CreatoDisplay-Regular", size: 14))
-                        .opacity(0.3)
-                        .padding()
+                    if #available(iOS 15.0, *) {
+                        Text(honk.datePosted.dateValue().formatted(date: .abbreviated, time: .shortened))
+                            .font(Font.custom("CreatoDisplay-Regular", size: 14))
+                            .opacity(0.3)
+                            .padding()
+                    } else {
+                        // Fallback on earlier versions
+                    }
                 }
             }
             .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .topLeading)

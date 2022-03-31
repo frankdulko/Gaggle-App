@@ -14,22 +14,25 @@ struct ContentView: View {
     @ObservedObject var userHonkRefsObs : UserHonkRefsObs
     @ObservedObject var userUpdateModel : UserUpdateModel
 
-
+    @State private var selection = 2
     
     var body: some View {
-        TabView{
+        TabView(selection: $selection){
             MapView(currentLocation: locationManager, feedModel: feedModel)
                 .tabItem{
                     Label("", systemImage: "mappin.and.ellipse")
                 }
+                .tag(1)
             FeedView(feedModel: feedModel, userModel: userUpdateModel)
                 .tabItem {
                     Label("", systemImage: "rectangle.grid.1x2.fill")
                 }
+                .tag(2)
             ProfileView(userModel: userUpdateModel, feedModel: feedModel, userHonkRefsObs: userHonkRefsObs)
                 .tabItem{
                     Label("", systemImage: "person.crop.circle")
                 }
+                .tag(3)
         }
         .accentColor(Color.gaggleGray)
     }

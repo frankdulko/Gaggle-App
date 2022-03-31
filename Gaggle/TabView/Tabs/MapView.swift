@@ -144,6 +144,7 @@ struct MapView: View {
             }
             .onAppear {
                 getSignificantPlaces()
+                checkedInManager()
             }
             .onDisappear {
             }
@@ -156,6 +157,7 @@ struct MapView: View {
     func checkedInManager(){
         if !significantPlaces.contains(where: {$0.name == memoryModel.user.location}){
             memoryModel.user.checkedIn = false
+            //feedModel.stopListening()
         }
     }
     

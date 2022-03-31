@@ -10,6 +10,7 @@ import SwiftUI
 import Firebase
 import FirebaseAuth
 import FirebaseStorage
+import FirebaseFirestore
 
 class FeedModel: ObservableObject {
     
@@ -18,7 +19,7 @@ class FeedModel: ObservableObject {
     @Published var urls: [String: String] = [:]
     @ObservedObject var user : UserUpdateModel
     @ObservedObject var userHonkRefsObs : UserHonkRefsObs
-    
+        
     init(user: UserUpdateModel, userHonkRefsObs: UserHonkRefsObs){
         print("Feed model init")
         self.user = user
@@ -91,7 +92,7 @@ class FeedModel: ObservableObject {
         //updates whenever collection changes
         //which causes published variable feed to update
         //which causes any view observing this variable to update
-        db.collection(location)
+        var listener = db.collection(location)
             .addSnapshotListener { querySnapshot, error in
                 guard let documents = querySnapshot?.documents else {
                     print("Error fetching documents: \(error!)")
@@ -107,7 +108,7 @@ class FeedModel: ObservableObject {
                                      datePosted: d["datePosted"] as? Timestamp ?? Timestamp())
                 }
             }
-        
+                
         //for every post at this location, get the user's profile picture url
         for honk in feed {
             //no need to get a user's profile picture url more than once if they have multiple posts
@@ -116,6 +117,10 @@ class FeedModel: ObservableObject {
             }
         }
     }
+    
+//    func stopListening(){
+//        listener.remove()
+//    }
     
     //GET PROFILE PICTURE URL OF A USER WITH THEIR ID
     //IF THEY DON'T HAVE ONE, USE DEFAULT
@@ -159,5 +164,44 @@ class FeedModel: ObservableObject {
             }
             self.urls[self.user.firuser.id] = url?.absoluteString ?? ""
         }
+    }
+    
+    //UPDATES THE USER'S PROFILE PICTURE IN DATABASE
+    //UPDATES USER'S PROFILE PICTURE URL LOCALLY
+    func newProfilePicture(image: UIImage){
+        print("Updating Profile Picture")
+        let storage = Storage.storage()
+        let storageRef = storage.reference().child("profilePictures/\(self.user.firuser.id).jpeg")
+        
+        // Resize the image to 200px in height with a custom extension
+        //let resizedImage = image.aspectFittedToHeight(height: 200)
+
+        // Convert the image into JPEG and compress the quality to reduce its size
+        let data = image.jpegData(compressionQuality: 0.2)
+        let metadata = StorageMetadata()
+        metadata.contentType = "image/jpeg"
+        
+        if let data = data {
+                storageRef.putData(data, metadata: metadata) { (metadata, error) in
+                        if let error = error {
+                                print("Error while uploading file: ", error)
+                        }
+                        else {
+                            storageRef.downloadURL { (url, error) in
+                                if error != nil {
+                                     print((error?.localizedDescription)!)
+                                     return
+                                }
+                                self.user.firuser.profilePictureURL = url!.absoluteString
+                                self.urls[self.user.firuser.id] = url!.absoluteString
+                            }
+                        }
+
+                        if let metadata = metadata {
+                                print("Metadata: ", metadata)
+                        }
+                }
+        }
+
     }
 }

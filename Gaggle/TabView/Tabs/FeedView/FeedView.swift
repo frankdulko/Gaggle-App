@@ -65,12 +65,37 @@ struct FeedView: View {
                 else{
                     VStack(alignment: .center) {
                         gaggleTitleView()
-                        Spacer()
-                        Text("Join a Gaggle")
-                            .font(Font.custom("LouisGeorgeCafeBold", size: 36))
+                            VStack{
+                            Text("You're not checked in to any nearby loaction")
+                                .font(Font.custom("CreatoDisplay-Bold", size: 24))
+                                .multilineTextAlignment(.center)
+                            Text("Check in at a location to join a Gaggle")
+                                .font(Font.custom("CreatoDisplay-Black", size: 36))
+                                .padding()
+                                .multilineTextAlignment(.center)
+                            Spacer()
+                            Image("gaggle-icon-post")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .padding(.all, 10)
+                                    .background(
+                                        LinearGradient(colors: [Color.gaggleGreen, Color.gaggleYellow], startPoint: .bottomLeading, endPoint: .topTrailing).cornerRadius(70).shadow(color: Color(UIColor.systemGray5), radius: 5, x: 0, y: 10))
+                                    .frame(width: 200, height: 200)
+                            Spacer()
+                            HStack{
+                                Text("Go to")
+                                    .font(Font.custom("CreatoDisplay-Bold", size: 18))
+                                Image(systemName: "mappin.and.ellipse")
+                                Text("tab to see available locations")
+                                    .font(Font.custom("CreatoDisplay-Bold", size: 18))
+                                
+                            }
                             .padding()
-                            .multilineTextAlignment(.center)
-                        Spacer()
+                            .foregroundColor(.white)
+                            .background(Color.gaggleOrange.cornerRadius(15))
+                            Spacer()
+                        }
+                            .padding()
                     }
                 }
             }
@@ -134,7 +159,7 @@ struct postButtonView: View{
         Button(action: {
             self.showWriteView.toggle()
         }, label: {
-            Image("gaggle-icon-clear")
+            Image("gaggle-icon-post")
                 .resizable()
                 .scaledToFit()
                 .padding(.all, 10)
@@ -144,7 +169,7 @@ struct postButtonView: View{
     })
     .frame(width: 70, height: 70)
     .background(
-        LinearGradient(colors: [Color.gaggleGreen, Color.gaggleYellow], startPoint: .bottomLeading, endPoint: .topTrailing).cornerRadius(70).shadow(color: Color(UIColor.systemGray5), radius: 5, x: 0, y: 10))
+        LinearGradient(colors: [Color.gaggleGreen, Color.gaggleYellow], startPoint: .bottomLeading, endPoint: .topTrailing).cornerRadius(25).shadow(color: Color(UIColor.systemGray5), radius: 5, x: 0, y: 10))
     .position(x: UIScreen.main.bounds.width - 60, y: UIScreen.main.bounds.height - 200)
     }
 }

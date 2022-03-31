@@ -25,6 +25,10 @@ extension Color{
     public static var gaggleYellow: Color {
         return Color(UIColor(red: 218/255, green: 255/255, blue: 138/255, alpha: 1.0))
     }
+    
+    public static var gaggleOrange: Color {
+        return Color(UIColor(red: 255/255, green: 152/255, blue: 85/255, alpha: 1.0))
+    }
 }
 
 extension UIImage {

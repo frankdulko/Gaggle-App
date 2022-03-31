@@ -13,6 +13,7 @@ struct ImagePicker: UIViewControllerRepresentable {
     var sourceType: UIImagePickerController.SourceType = .photoLibrary
     @Binding var selectedImage: UIImage
     @ObservedObject var userModel : UserUpdateModel
+    @ObservedObject var feedModel : FeedModel
 
     func makeUIViewController(context: UIViewControllerRepresentableContext<ImagePicker>) -> UIImagePickerController {
 
@@ -44,7 +45,8 @@ struct ImagePicker: UIViewControllerRepresentable {
 
             if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
                 parent.selectedImage = image
-                parent.userModel.newProfilePicture(image: image)
+                //parent.userModel.newProfilePicture(image: image)
+                parent.feedModel.newProfilePicture(image: image)
             }
 
             parent.presentationMode.wrappedValue.dismiss()

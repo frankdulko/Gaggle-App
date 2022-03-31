@@ -10,6 +10,9 @@ import FirebaseAuth
 
 struct SettingsView: View {
     @EnvironmentObject var viewRouter: ViewRouter
+    
+    @ObservedObject var userUpdateModel : UserUpdateModel
+    @ObservedObject var userHonkRefsObs : UserHonkRefsObs
 
     @State var signOutProcessing = false
 
@@ -59,6 +62,9 @@ struct SettingsView: View {
         } catch let signOutError as NSError {
           print("Error signing out: %@", signOutError)
         }
+        userUpdateModel.firuser = FIRUserModel()
+        userHonkRefsObs.userHonkRefs.removeAll()
+        userHonkRefsObs.userHonks.removeAll()
         withAnimation {
             viewRouter.currentPage = .signInPage
         }
@@ -67,6 +73,6 @@ struct SettingsView: View {
 
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
-        SettingsView()
+        SettingsView(userUpdateModel: UserUpdateModel(), userHonkRefsObs: UserHonkRefsObs())
     }
 }

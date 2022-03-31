@@ -164,26 +164,23 @@ class UserUpdateModel: ObservableObject {
         let uid = Auth.auth().currentUser?.uid ?? ""
         if uid != "" {
             let db = Firestore.firestore()
-            let docRef = db.collection("Users").document(uid)
-
-            docRef.getDocument { (document, error) in
-                guard error == nil else {
-                    print("error", error ?? "")
+            db.collection("Users").document(uid)
+                .addSnapshotListener { documentSnapshot, error in
+                  guard let document = documentSnapshot else {
+                    print("Error fetching document: \(error!)")
                     return
+                  }
+                  guard let data = document.data() else {
+                    print("Document data was empty.")
+                    return
+                  }
+                    self.firuser.id = uid
+                    self.firuser.displayName = data["displayName"] as? String ?? ""
+                    self.firuser.karma = data["karma"] as? Int ?? 0
+                    self.firuser.likes = data["likes"] as? [String] ?? []
+                    self.firuser.dislikes = data["dislikes"] as? [String] ?? []
+                    self.firuser.honkRefs = data["honkRefs"] as? [DocumentReference] ?? []
                 }
-
-                if let document = document, document.exists {
-                    let data = document.data()
-                    if let data = data {
-                        self.firuser.id = uid
-                        self.firuser.displayName = data["displayName"] as? String ?? ""
-                        self.firuser.karma = data["karma"] as? Int ?? 0
-                        self.firuser.likes = data["likes"] as? [String] ?? []
-                        self.firuser.dislikes = data["dislikes"] as? [String] ?? []
-                        self.firuser.honkRefs = data["honkRefs"] as? [DocumentReference] ?? []
-                    }
-                }
-            }
         }
         else {
             print("Document path is empty.")
