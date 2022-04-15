@@ -1,5 +1,9 @@
 # Gaggle
 
+Took input from last class:
+
+Removed Items That looked like buttons
+
 Updated Map View
 
 Added Interactive Markers
