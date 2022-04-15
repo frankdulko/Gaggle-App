@@ -1,4 +1,12 @@
 # Gaggle
+WEEK 8:
+
+Final refinements.
+
+TestFlight approved.
+
+https://testflight.apple.com/join/Z0B7L6Kp
+
 WEEK 7:
 
 Continued optimizing UI.
