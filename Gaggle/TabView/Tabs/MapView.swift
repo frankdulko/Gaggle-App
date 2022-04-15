@@ -15,6 +15,7 @@ struct MapView: View {
     @State private var showJoinView: Bool = false
     @State private var selection = ""
     @State private var collection = ""
+    @State private var annotationActive = false
     @ObservedObject var currentLocation : LocationManager
     @ObservedObject var feedModel : FeedModel
     
@@ -23,39 +24,69 @@ struct MapView: View {
     
     init(currentLocation: LocationManager, feedModel : FeedModel){
         self.currentLocation = currentLocation
-        region = MKCoordinateRegion(center: currentLocation.location.location, span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5))
+        region = MKCoordinateRegion(center: currentLocation.location.location, span: MKCoordinateSpan(latitudeDelta: 0.03, longitudeDelta: 0.03))
         self.feedModel = feedModel
+    }
+    
+    func findIndex(id: UUID) -> Int? {
+        return significantPlaces.firstIndex { item in item.id == id }
+    }
+    
+    func findIndex(name: String) -> Int? {
+        return significantPlaces.firstIndex { item in item.name == name }
     }
     
     var body: some View {
             ZStack(alignment: .top){
                     VStack(){
                         gaggleTitleView()
-                        PinAnnotationMapView(places: significantPlaces, region: region)
+                        VStack{
+                        PinAnnotationMapView(places: $significantPlaces, region: $region, selection: $selection, collection: $collection, showJoinView: $showJoinView, annotationActive: $annotationActive)
                             .frame(width: 350, height: 350)
                             .cornerRadius(20)
-                        ScrollView{
-                            ForEach(significantPlaces) { place in
-                                HStack{
-                                    Spacer()
-                                    Button {
-                                        selection = place.name
-                                        collection = place.collection
-                                        withAnimation {
-                                            showJoinView.toggle()
+                            .padding()
+                            Spacer()
+                        }
+                        .frame(width: UIScreen.main.bounds.width, height: 400)
+                        .background(LinearGradient(colors: [Color.gaggleGreen, Color.gaggleYellow], startPoint: .bottomLeading, endPoint: .topTrailing).cornerRadius(20, corners: [.bottomLeft, .bottomRight]).shadow(color: Color(UIColor.systemGray), radius: 5, x: 0, y: 3))
+                        if(significantPlaces.isEmpty)
+                        {
+                            Spacer()
+                            HStack{
+                                Text("No nearby locations available to join.")
+                                    .font(Font.custom("CreatoDisplay-Black", size: 36))
+                                    .padding()
+                                    .multilineTextAlignment(.center)
+                            }
+                            Spacer()
+                        }
+                        else{
+                            ScrollView{
+                                ForEach(significantPlaces) { place in
+                                    HStack{
+                                        Spacer()
+                                        Button {
+                                            selection = place.name
+                                            collection = place.collection
+                                            withAnimation {
+                                                showJoinView.toggle()
+                                            }
+                                            if let index = findIndex(id: place.id){
+                                                significantPlaces[index].annotationActive.toggle()
+                                            }
+                                        } label: {
+                                            HStack{
+                                                Text(place.name)
+                                                    .font(Font.custom("CreatoDisplay-Black", size: 18))
+                                                    .padding()
+                                            }
+                                            .frame(width: 350, height: .none)
+                                            .background(Color(UIColor.systemGray6).cornerRadius(10))
+                                            .padding([.top,.bottom], 5)
+                                            .opacity(0.95)
                                         }
-                                    } label: {
-                                        HStack{
-                                            Text(place.name)
-                                                .font(Font.custom("CreatoDisplay-Black", size: 18))
-                                                .padding()
-                                        }
-                                        .frame(width: 350, height: .none)
-                                        .background(Color(UIColor.systemGray6).cornerRadius(10))
-                                        .padding([.top,.bottom], 5)
-                                        .opacity(0.95)
+                                        Spacer()
                                     }
-                                    Spacer()
                                 }
                             }
                         }
@@ -116,6 +147,9 @@ struct MapView: View {
                                 withAnimation {
                                     showJoinView.toggle()
                                 }
+                                if let index = findIndex(name: selection){
+                                    significantPlaces[index].annotationActive.toggle()
+                                }
                             } label: {
                                 Text("Yes")
                                     .frame(width: UIScreen.main.bounds.width-50, height: 50)
@@ -126,6 +160,9 @@ struct MapView: View {
                             Button {
                                 withAnimation {
                                     showJoinView.toggle()
+                                }
+                                if let index = findIndex(name: selection){
+                                    significantPlaces[index].annotationActive.toggle()
                                 }
                             } label: {
                                 Text("No")
@@ -162,7 +199,7 @@ struct MapView: View {
     }
     
     func getSignificantPlaces(){
-        let region = MKCoordinateRegion(center: currentLocation.location.location, span: MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1))
+        let region = MKCoordinateRegion(center: currentLocation.location.location, span: MKCoordinateSpan(latitudeDelta: 0.025, longitudeDelta: 0.025))
 
         let pointOfInterest = MKLocalPointsOfInterestRequest(coordinateRegion: region)
         pointOfInterest.pointOfInterestFilter = MKPointOfInterestFilter(including: [
@@ -239,6 +276,7 @@ struct SignificantPlace: Identifiable {
     let name : String
     let street : String
     let collection : String
+    var annotationActive : Bool
     init(id: UUID = UUID(), lat: Double, long: Double, name: String, street: String) {
         self.id = id
         self.location = CLLocationCoordinate2D(
@@ -249,24 +287,44 @@ struct SignificantPlace: Identifiable {
         let nameNoSpaces = name.replacingOccurrences(of: " ", with: "")
         let streetNoSpaces = street.replacingOccurrences(of: " ", with: "")
         self.collection = nameNoSpaces + streetNoSpaces
+        self.annotationActive = false
     }
 }
 
 struct PinAnnotationMapView: View {
-    let places : [SignificantPlace]
-    @State var region: MKCoordinateRegion
+    @Binding var places : [SignificantPlace]
+    @Binding var region: MKCoordinateRegion
+    
+    @Binding var selection : String
+    @Binding var collection : String
+    @Binding var showJoinView : Bool
+    @Binding var annotationActive : Bool
 
     var body: some View {
-        Map(coordinateRegion: $region, interactionModes: .init(), showsUserLocation: true, userTrackingMode: .constant(.follow), annotationItems: places)
+        Map(coordinateRegion: $region, interactionModes: .all, showsUserLocation: true, userTrackingMode: .constant(.follow), annotationItems: places)
         { place in
             MapAnnotation(coordinate: place.location) {
-                Image(systemName: "person.3")
-                    .resizable()
-                    .scaledToFit()
-                    .padding(.all, 5)
-                    .frame(width: 40, height: 40)
-                    .background(LinearGradient(colors: [Color.gaggleGreen, Color.gaggleYellow], startPoint: .bottomLeading, endPoint: .topTrailing).cornerRadius(20).shadow(color: Color(UIColor.systemGray), radius: 5, x: 0, y: 3))
+                Circle()
+                    .strokeBorder(Color.gaggleGray, lineWidth: 2)
+                    .background(Circle().fill(LinearGradient(colors: [Color.gaggleGreen, Color.gaggleYellow], startPoint: .bottomLeading, endPoint: .topTrailing)).shadow(color: Color(UIColor.systemGray), radius: 5, x: 0, y: 3))
+                    .frame(width: 20, height: 20)
+                    .scaleEffect(place.annotationActive ? 2 : 1)
+                    .animation(.easeOut)
+                    .onTapGesture {
+                        selection = place.name
+                        collection = place.collection
+                        withAnimation {
+                            showJoinView.toggle()
                         }
+                        if let index = findIndex(id: place.id){
+                            places[index].annotationActive.toggle()
+                        }
+                    }
+            }
         }
+    }
+    
+    func findIndex(id: UUID) -> Int? {
+        return places.firstIndex { item in item.id == id }
     }
 }

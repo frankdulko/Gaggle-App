@@ -8,7 +8,11 @@
 import Foundation
 import FirebaseFirestore
 
-struct HonkModel: Identifiable{
+struct HonkModel: Identifiable, Comparable, Equatable{
+    static func < (lhs: HonkModel, rhs: HonkModel) -> Bool {
+        return lhs.datePosted.seconds < rhs.datePosted.seconds
+    }
+    
     var id: String
     var ref: DocumentReference
     var honk: String

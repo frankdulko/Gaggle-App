@@ -23,43 +23,40 @@ struct FeedView: View {
                         HStack{
                             Spacer()
                             HStack{
-                                Text(memoryModel.user.location + " Honks")
+                                Text(memoryModel.user.location)
                                     .foregroundColor(Color.gaggleGray)
                                     .multilineTextAlignment(.center)
                                     .font(Font.custom("CreatoDisplay-Black", size: 24))
-                                    .padding()
                             }
-                            .frame(width: 350, height: .none)
-                            .background(LinearGradient(colors: [Color.gaggleGreen, Color.gaggleYellow], startPoint: .bottomLeading, endPoint: .topTrailing).cornerRadius(10))
                             Spacer()
-//                            Menu{
-//                                Text("Sort by:")
-//                                Button {
-//
-//                                } label: {
-//                                    Text("New")
-//                                }
-//                                Button {
-//
-//                                } label: {
-//                                    Text("Top")
-//                                }
-//                            } label: {
-//                                Image(systemName: "line.3.horizontal")
-//                                    .resizable()
-//                                    .frame(width: 25, height: 15)
-//                                    .foregroundColor(.black)
-//                            }
-//                            .padding()
                         }
-                        ScrollView{
-                                VStack{
-                                    ForEach(feedModel.feed, id: \.id) { honk in
-                                        HonkView(honk: honk, userModel: userModel, model: feedModel)
+                        Divider()
+                            .padding([.leading,.trailing], 10)
+                        if(feedModel.feed.isEmpty)
+                        {
+                            Spacer()
+                            VStack{
+                                Text("No honks here.")
+                                    .font(Font.custom("CreatoDisplay-Bold", size: 24))
+                                    .multilineTextAlignment(.center)
+                                Text("Be the first to post a honk in this Gaggle!")
+                                    .font(Font.custom("CreatoDisplay-Black", size: 36))
+                                    .padding()
+                                    .multilineTextAlignment(.center)
+                            }
+                            Spacer()
+                        }
+                        else
+                        {
+                            ScrollView{
+                                    VStack{
+                                        ForEach(feedModel.feed, id: \.id) { honk in
+                                            HonkView(honk: honk, userModel: userModel, model: feedModel)
+                                        }
                                     }
                                 }
-                            }
                         }
+                    }
                     postButtonView(feedModel: feedModel, userModel: userModel)
                 }
                 else{
@@ -91,8 +88,6 @@ struct FeedView: View {
                                 
                             }
                             .padding()
-                            .foregroundColor(.white)
-                            .background(Color.gaggleOrange.cornerRadius(15))
                             Spacer()
                         }
                             .padding()
@@ -103,6 +98,7 @@ struct FeedView: View {
 //                if (memoryModel.user.checkedIn){
 //                    feedModel.getData(location: memoryModel.user.location)
 //                }
+                //feedModel.feed.sort(by: >);
             }
     }
         
@@ -121,6 +117,7 @@ struct gaggleTitleView: View{
         HStack(alignment: .center) {
             Text("Gaggle")
                 .font(Font.custom("Hamish", size: 48))
+                .padding([.bottom])
         }
         //.frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: 75, alignment: .center)
         //.background(

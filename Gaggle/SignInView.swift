@@ -20,6 +20,8 @@ struct SignInView: View {
     @ObservedObject var userHonkRefsObs : UserHonkRefsObs
 
     var body: some View {
+        ZStack{
+            LinearGradient(colors: [Color.gaggleGreen, Color.gaggleYellow], startPoint: .bottomLeading, endPoint: .topTrailing).ignoresSafeArea()
             VStack {
                 Group{
                     Image("gaggle-icon-clear")
@@ -68,10 +70,7 @@ struct SignInView: View {
                 }
             }
             .padding()
-            .background(
-                LinearGradient(colors: [Color.gaggleGreen, Color.gaggleYellow], startPoint: .bottomLeading, endPoint: .topTrailing)
-                )
-        
+        }
     }
     
     func signInUser(userEmail: String, userPassword: String) {
