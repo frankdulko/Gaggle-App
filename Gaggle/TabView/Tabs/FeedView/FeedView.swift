@@ -19,21 +19,30 @@ struct FeedView: View {
                 if(memoryModel.user.checkedIn){
               //if(true){
                     VStack{
-                        gaggleTitleView()
-                        HStack{
-                            Spacer()
+                        //gaggleTitleView()
+                        VStack{
                             HStack{
                                 Text(memoryModel.user.location)
-                                    .foregroundColor(Color.gaggleGray)
-                                    .multilineTextAlignment(.center)
-                                    .font(Font.custom("CreatoDisplay-Black", size: 24))
+                                    .foregroundColor(Color.gaggleOrange)
+                                    .multilineTextAlignment(.leading)
+                                    .font(Font.custom("CreatoDisplay-Black", size: 34))
+                                    .textCase(.uppercase)
+                                Spacer()
                             }
-                            Spacer()
+                            .padding(.leading)
+                            HStack{
+                                Text(memoryModel.user.street)
+                                    .foregroundColor(Color.gaggleGray)
+                                    .multilineTextAlignment(.leading)
+                                    .font(Font.custom("CreatoDisplay-Black", size: 18))
+                                    .textCase(.uppercase)
+                                Spacer()
+                            }
+                            .padding(.leading)
                         }
-                        Divider()
-                            .padding([.leading,.trailing], 10)
                         if(feedModel.feed.isEmpty)
                         {
+                            VStack{
                             Spacer()
                             VStack{
                                 Text("No honks here.")
@@ -45,6 +54,8 @@ struct FeedView: View {
                                     .multilineTextAlignment(.center)
                             }
                             Spacer()
+                            }
+                            .background(Color(UIColor.systemGray6))
                         }
                         else
                         {
@@ -54,7 +65,9 @@ struct FeedView: View {
                                             HonkView(honk: honk, userModel: userModel, model: feedModel)
                                         }
                                     }
+                                    .padding(.top)
                                 }
+                            .background(Color(UIColor.systemGray6))
                         }
                     }
                     postButtonView(feedModel: feedModel, userModel: userModel)

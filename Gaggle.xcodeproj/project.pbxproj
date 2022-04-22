@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9106A23228106E1E00A74160 /* myHonksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9106A23128106E1E00A74160 /* myHonksView.swift */; };
 		911A448227EE2A5A006629C3 /* LouisGeorgeCafeBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 911A448127EE2A5A006629C3 /* LouisGeorgeCafeBold.ttf */; };
 		911A448427EE2A6B006629C3 /* LouisGeorgeCafe.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 911A448327EE2A6B006629C3 /* LouisGeorgeCafe.ttf */; };
 		91226BC527F226B8008F9F5C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 91226BC427F226B8008F9F5C /* GoogleService-Info.plist */; };
@@ -46,6 +47,7 @@
 /* Begin PBXFileReference section */
 		78ECD182FC631362CFEF7F7A /* Pods_Gaggle.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Gaggle.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		824985B1B54BFD60EC94038E /* Pods-Gaggle.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Gaggle.release.xcconfig"; path = "Target Support Files/Pods-Gaggle/Pods-Gaggle.release.xcconfig"; sourceTree = "<group>"; };
+		9106A23128106E1E00A74160 /* myHonksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = myHonksView.swift; sourceTree = "<group>"; };
 		911A448127EE2A5A006629C3 /* LouisGeorgeCafeBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = LouisGeorgeCafeBold.ttf; sourceTree = "<group>"; };
 		911A448327EE2A6B006629C3 /* LouisGeorgeCafe.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = LouisGeorgeCafe.ttf; sourceTree = "<group>"; };
 		91226BC427F226B8008F9F5C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Desktop/GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -188,6 +190,7 @@
 				9145B3E427CAC73F00800EE3 /* MapView.swift */,
 				9145B3EB27CAC7C700800EE3 /* FeedView */,
 				9145B3E627CAC74D00800EE3 /* ProfileView.swift */,
+				9106A23128106E1E00A74160 /* myHonksView.swift */,
 				91B1926A27D680E900F50C60 /* SettingsView.swift */,
 			);
 			path = Tabs;
@@ -358,6 +361,7 @@
 				9145B3D427CABF4400800EE3 /* ContentView.swift in Sources */,
 				9145B40527CBE2E700800EE3 /* SignInView.swift in Sources */,
 				9145B40F27CC057500800EE3 /* UserUpdateModel.swift in Sources */,
+				9106A23228106E1E00A74160 /* myHonksView.swift in Sources */,
 				9145B3E927CAC79000800EE3 /* FeedView.swift in Sources */,
 				9125AF5727CFE86300C1697E /* Extensions.swift in Sources */,
 				9145B3D227CABF4400800EE3 /* GaggleApp.swift in Sources */,
@@ -500,7 +504,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Gaggle/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = Gaggl;
+				INFOPLIST_KEY_CFBundleDisplayName = "Gaggle - Social";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -514,7 +518,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.1.5;
+				MARKETING_VERSION = 0.1.6;
 				PRODUCT_BUNDLE_IDENTIFIER = com.frankdulko.gaggl;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -536,7 +540,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Gaggle/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = Gaggl;
+				INFOPLIST_KEY_CFBundleDisplayName = "Gaggle - Social";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -550,7 +554,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.1.5;
+				MARKETING_VERSION = 0.1.6;
 				PRODUCT_BUNDLE_IDENTIFIER = com.frankdulko.gaggl;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;

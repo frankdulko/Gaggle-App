@@ -21,6 +21,7 @@ struct ProfileView: View {
     @State var honks = true
     @State var likes = false
     @State var dislikes = false
+    @State var showMyHonks = false
     
     @ObservedObject var userModel : UserUpdateModel
     @ObservedObject var feedModel : FeedModel
@@ -29,7 +30,7 @@ struct ProfileView: View {
     var body: some View {
         ZStack{
             VStack {
-                gaggleTitleView()
+                //gaggleTitleView()
                 HStack(alignment: .top){
                     WebImage(url: URL(string: userModel.firuser.profilePictureURL))
                         .resizable()
@@ -62,7 +63,7 @@ struct ProfileView: View {
                     Spacer()
                     Button {
                         withAnimation {
-                            viewRouter.currentPage = .settingsPage
+                            //viewRouter.currentPage = .settingsPage
                         }
                     } label: {
                         Image(systemName: "gearshape")
@@ -75,16 +76,34 @@ struct ProfileView: View {
                 .padding([.leading, .trailing], 10)
                 Divider()
                     .padding([.leading, .trailing], 10)
-                Text("Honks")
-                    .font(Font.custom("CreatoDisplay-Bold", size: 20))
-                Divider()
-                ScrollView{
-                    VStack{
-                        ForEach(userHonkRefsObs.userHonks, id: \.id) { honk in
-                            HonkView(honk: honk, userModel: userModel, model: feedModel)
-                        }
-                    }
+                HStack{
+                    Button(action: {
+                        self.showMyHonks.toggle()
+                    }, label: {
+                        Text("My Honks")
+                            .textCase(.uppercase)
+                            .font(Font.custom("CreatoDisplay-Black", size: 16))
+                            .padding()
+                            .background(Color(UIColor.systemGray5))
+                            .cornerRadius(10)
+                    })
+                    .sheet(isPresented: $showMyHonks, content: {
+                        myHonksView(userModel: userModel, feedModel: feedModel, userHonkRefsObs: userHonkRefsObs)
+                    })
+                    .padding()
+                    Spacer()
                 }
+                Spacer()
+//                Text("Honks")
+//                    .font(Font.custom("CreatoDisplay-Bold", size: 20))
+//                Divider()
+//                ScrollView{
+//                    VStack{
+//                        ForEach(userHonkRefsObs.userHonks, id: \.id) { honk in
+//                            HonkView(honk: honk, userModel: userModel, model: feedModel)
+//                        }
+//                    }
+//                }
 //                HStack{
 //                    Spacer()
 //                    Text("Honks")
@@ -144,7 +163,7 @@ struct ProfileView: View {
             .frame(width: 30, height: 30)
             .background(Color(UIColor.systemBlue).cornerRadius(50).shadow(color: Color(UIColor.systemGray), radius: 5, x: 3, y: 3))
             .foregroundColor(.white)
-            .position(x: 95, y: 165)
+            .position(x: 95, y: 85)
 
         }
         .sheet(isPresented: $showSheet) {

@@ -11,21 +11,24 @@ import MapKit
 struct MapView: View {
     @EnvironmentObject var memoryModel : MemoryModel
     @State private var significantPlaces : [SignificantPlace] = [SignificantPlace]()
+    //@State private var sigPlace = SignificantPlace(lat: 0, long: 0, name: "test", street: "test")
     @State private var tapped: Bool = false
     @State private var showJoinView: Bool = false
     @State private var selection = ""
     @State private var collection = ""
+    @State private var street = ""
     @State private var annotationActive = false
     @ObservedObject var currentLocation : LocationManager
+    @State private var region : MKCoordinateRegion
+
     @ObservedObject var feedModel : FeedModel
     
     
-    @State private var region : MKCoordinateRegion
-    
     init(currentLocation: LocationManager, feedModel : FeedModel){
         self.currentLocation = currentLocation
-        region = MKCoordinateRegion(center: currentLocation.location.location, span: MKCoordinateSpan(latitudeDelta: 0.03, longitudeDelta: 0.03))
+        region = MKCoordinateRegion(center: currentLocation.location.location, span: MKCoordinateSpan(latitudeDelta: 0.0025, longitudeDelta: 0.0025))
         self.feedModel = feedModel
+        
     }
     
     func findIndex(id: UUID) -> Int? {
@@ -37,18 +40,17 @@ struct MapView: View {
     }
     
     var body: some View {
-            ZStack(alignment: .top){
-                    VStack(){
-                        gaggleTitleView()
+            ZStack{
+                    VStack{
+                        //gaggleTitleView()
                         VStack{
                         PinAnnotationMapView(places: $significantPlaces, region: $region, selection: $selection, collection: $collection, showJoinView: $showJoinView, annotationActive: $annotationActive)
                             .frame(width: 350, height: 350)
                             .cornerRadius(20)
-                            .padding()
+                            .padding([.leading,.top,.trailing])
                             Spacer()
                         }
-                        .frame(width: UIScreen.main.bounds.width, height: 400)
-                        .background(LinearGradient(colors: [Color.gaggleGreen, Color.gaggleYellow], startPoint: .bottomLeading, endPoint: .topTrailing).cornerRadius(20, corners: [.bottomLeft, .bottomRight]).shadow(color: Color(UIColor.systemGray), radius: 5, x: 0, y: 3))
+                        .shadow(color: Color(UIColor.systemGray), radius: 5, x: 0, y: 3)
                         if(significantPlaces.isEmpty)
                         {
                             Spacer()
@@ -62,12 +64,21 @@ struct MapView: View {
                         }
                         else{
                             ScrollView{
+                                HStack{
+                                    Text("NEARBY LOCATIONS")
+                                        .font(Font.custom("CreatoDisplay-Black", size: 16))
+                                        .padding([.leading,.top])
+                                        .foregroundColor(Color.gaggleOrange)
+                                    Spacer()
+                                }
                                 ForEach(significantPlaces) { place in
                                     HStack{
                                         Spacer()
                                         Button {
+                                            //sigPlace = place
                                             selection = place.name
                                             collection = place.collection
+                                            street = place.street
                                             withAnimation {
                                                 showJoinView.toggle()
                                             }
@@ -90,47 +101,6 @@ struct MapView: View {
                                 }
                             }
                         }
-//DEBUG LOCATION
-//                        Text("locations = \(currentLocation.location.location.latitude) \(currentLocation.location.location.longitude)")
-//                        VStack(alignment: .center){
-//                            ScrollView{
-//                                ForEach(significantPlaces) { place in
-//                                    Button {
-//                                        selection = place.name
-//                                        collection = place.collection
-//                                        withAnimation {
-//                                            showJoinView.toggle()
-//                                        }
-//                                    } label: {
-//                                        Text(place.name)
-//                                            .font(Font.custom("CreatoDisplay-Black", size: 18))
-//                                            .padding()
-//                                            .background(Color.gray.cornerRadius(10))
-//                                    }
-//                                    .padding()
-//
-//                                }
-//                            }
-//                        }
-//                            List{
-//                                ForEach(significantPlaces) { place in
-//                                    HStack{
-//                                        Text(place.name)
-//                                            .font(Font.custom("CreatoDisplay-Bold", size: 18))
-//                                        Spacer()
-//                                        Button {
-//                                            selection = place.name
-//                                            collection = place.collection
-//                                            withAnimation {
-//                                                showJoinView.toggle()
-//                                            }
-//                                        } label: {
-//                                            Text("")
-//                                        }
-//                                    }
-//                                }
-//                            }
-//                            .listStyle(.plain)
                     }
                 if showJoinView {
                     VStack{
@@ -140,8 +110,10 @@ struct MapView: View {
                                 .font(Font.custom("CreatoDisplay-Bold", size: 24))
                                 .multilineTextAlignment(.center)
                             Button {
+                                //memoryModel.user.place = sigPlace
                                 memoryModel.user.location = selection
                                 memoryModel.user.collection = collection
+                                memoryModel.user.street = street
                                 memoryModel.user.checkedIn = true
                                 feedModel.getData(location: collection)
                                 withAnimation {
@@ -178,6 +150,9 @@ struct MapView: View {
                     .opacity(0.95)
                     .padding()
                 }
+                else{
+                    
+                }
             }
             .onAppear {
                 getSignificantPlaces()
@@ -186,6 +161,7 @@ struct MapView: View {
             .onDisappear {
             }
             .onChange(of: currentLocation.location) { newValue in
+                region = MKCoordinateRegion(center: currentLocation.location.location, span: MKCoordinateSpan(latitudeDelta: 0.0025, longitudeDelta: 0.0025))
                 getSignificantPlaces()
                 checkedInManager()
             }
@@ -199,15 +175,16 @@ struct MapView: View {
     }
     
     func getSignificantPlaces(){
-        let region = MKCoordinateRegion(center: currentLocation.location.location, span: MKCoordinateSpan(latitudeDelta: 0.025, longitudeDelta: 0.025))
+        let region = MKCoordinateRegion(center: currentLocation.location.location, span: MKCoordinateSpan(latitudeDelta: 0.0025, longitudeDelta: 0.0025))
 
         let pointOfInterest = MKLocalPointsOfInterestRequest(coordinateRegion: region)
         pointOfInterest.pointOfInterestFilter = MKPointOfInterestFilter(including: [
-            MKPointOfInterestCategory.brewery,
+            //MKPointOfInterestCategory.brewery,
+            MKPointOfInterestCategory.university,
             MKPointOfInterestCategory.cafe,
             MKPointOfInterestCategory.nightlife,
-            MKPointOfInterestCategory.restaurant,
-            MKPointOfInterestCategory.winery])
+            MKPointOfInterestCategory.restaurant])
+            //MKPointOfInterestCategory.winery])
         let search = MKLocalSearch(request: pointOfInterest)
         
         search.start { (response, error) in
@@ -258,6 +235,10 @@ class LocationManager: NSObject, CLLocationManagerDelegate, ObservableObject{
         //print("locations = \(locValue.latitude) \(locValue.longitude)")
         print("locations = \(location.location.latitude) \(location.location.longitude)")
     }
+    
+    func getLocation(){
+        locationManager.requestLocation()
+    }
 }
 
 struct Location : Equatable{
@@ -301,7 +282,7 @@ struct PinAnnotationMapView: View {
     @Binding var annotationActive : Bool
 
     var body: some View {
-        Map(coordinateRegion: $region, interactionModes: .all, showsUserLocation: true, userTrackingMode: .constant(.follow), annotationItems: places)
+        Map(coordinateRegion: $region, interactionModes: .all, showsUserLocation: true, annotationItems: places)
         { place in
             MapAnnotation(coordinate: place.location) {
                 Circle()
