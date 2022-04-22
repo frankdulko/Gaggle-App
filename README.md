@@ -1,4 +1,22 @@
 # Gaggle
+
+Took input from last class:
+
+Removed Items That looked like buttons
+
+Updated Map View
+
+Added Interactive Markers
+
+Added Map interactivity
+
+Still some glitches when moving the map and with the locations that show up.
+
+
+
+
+
+
 WEEK 8:
 
 Final refinements.
