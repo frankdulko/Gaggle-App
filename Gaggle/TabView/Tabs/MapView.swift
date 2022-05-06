@@ -10,7 +10,6 @@ import MapKit
 
 struct MapView: View {
     @EnvironmentObject var memoryModel : MemoryModel
-    @State private var significantPlaces : [SignificantPlace] = [SignificantPlace]()
     //@State private var sigPlace = SignificantPlace(lat: 0, long: 0, name: "test", street: "test")
     @State private var tapped: Bool = false
     @State private var showJoinView: Bool = false
@@ -19,16 +18,21 @@ struct MapView: View {
     @State private var street = ""
     @State private var annotationActive = false
     @ObservedObject var currentLocation : LocationManager
-    @State private var region : MKCoordinateRegion
+    
+    @State private var significantPlaces : [SignificantPlace] = [SignificantPlace]()
 
     @ObservedObject var feedModel : FeedModel
+
+    
+    @State private var region : MKCoordinateRegion
+
     
     
     init(currentLocation: LocationManager, feedModel : FeedModel){
         self.currentLocation = currentLocation
-        region = MKCoordinateRegion(center: currentLocation.location.location, span: MKCoordinateSpan(latitudeDelta: 0.0025, longitudeDelta: 0.0025))
+        region = MKCoordinateRegion(center: currentLocation.location.coordinatePrecise, span: MKCoordinateSpan(latitudeDelta: 0.0025, longitudeDelta: 0.0025))
         self.feedModel = feedModel
-        
+        print("MapView init")
     }
     
     func findIndex(id: UUID) -> Int? {
@@ -155,13 +159,14 @@ struct MapView: View {
                 }
             }
             .onAppear {
+                //currentLocation.getLocation()
                 getSignificantPlaces()
                 checkedInManager()
             }
             .onDisappear {
             }
-            .onChange(of: currentLocation.location) { newValue in
-                region = MKCoordinateRegion(center: currentLocation.location.location, span: MKCoordinateSpan(latitudeDelta: 0.0025, longitudeDelta: 0.0025))
+            .onChange(of: currentLocation.location.coordinate) { newValue in
+                region = MKCoordinateRegion(center: currentLocation.location.coordinatePrecise, span: MKCoordinateSpan(latitudeDelta: 0.0025, longitudeDelta: 0.0025))
                 getSignificantPlaces()
                 checkedInManager()
             }
@@ -175,7 +180,7 @@ struct MapView: View {
     }
     
     func getSignificantPlaces(){
-        let region = MKCoordinateRegion(center: currentLocation.location.location, span: MKCoordinateSpan(latitudeDelta: 0.0025, longitudeDelta: 0.0025))
+        let region = MKCoordinateRegion(center: currentLocation.location.coordinatePrecise, span: MKCoordinateSpan(latitudeDelta: 0.0025, longitudeDelta: 0.0025))
 
         let pointOfInterest = MKLocalPointsOfInterestRequest(coordinateRegion: region)
         pointOfInterest.pointOfInterestFilter = MKPointOfInterestFilter(including: [
@@ -214,41 +219,58 @@ class LocationManager: NSObject, CLLocationManagerDelegate, ObservableObject{
     override init(){
         print("Location Manager Init")
         super.init()
-        print("locations = \(location.location.latitude) \(location.location.longitude)")
+        print("locations = \(location.coordinate.latitude) \(location.coordinate.longitude)")
         locationManager.requestAlwaysAuthorization()
         locationManager.requestWhenInUseAuthorization()
         
         if CLLocationManager.locationServicesEnabled() {
             locationManager.delegate = self
-            //locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
-            locationManager.startMonitoringSignificantLocationChanges()
-            //locationManager.startUpdatingLocation()
+            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+            //locationManager.startMonitoringSignificantLocationChanges()
+            locationManager.startUpdatingLocation()
         }
     }
 
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
 //        guard let locValue: CLLocationCoordinate2D = manager.location?.coordinate else { return }
-        //location.location = locValue
-
-        location.location = locations.last!.coordinate
+        var lat = locations.last!.coordinate.latitude
+        lat = round(lat * 1000)/1000
+        var long = locations.last!.coordinate.longitude
+        long = round(long * 1000)/1000
+        location.coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
+        location.coordinatePrecise = locations.last!.coordinate
         //currentLocation = locValue
         //print("locations = \(locValue.latitude) \(locValue.longitude)")
-        print("locations = \(location.location.latitude) \(location.location.longitude)")
+        print("locations = \(location.coordinate.latitude) \(location.coordinate.longitude)")
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print(error)
     }
     
     func getLocation(){
-        locationManager.requestLocation()
+        //locationManager.requestLocation()
+    }
+}
+
+extension CLLocationCoordinate2D : Equatable{
+    public static func == (lhs: CLLocationCoordinate2D, rhs: CLLocationCoordinate2D) -> Bool {
+        return(
+        lhs.longitude == rhs.longitude &&
+        lhs.latitude == rhs.latitude
+        )
     }
 }
 
 struct Location : Equatable{
     static func == (lhs: Location, rhs: Location) -> Bool {
         return(
-        lhs.location.longitude == rhs.location.longitude &&
-        lhs.location.latitude == rhs.location.latitude
+        lhs.coordinate.longitude == rhs.coordinate.longitude &&
+        lhs.coordinate.latitude == rhs.coordinate.latitude
         )
     }
-    var location = CLLocationCoordinate2D()
+    var coordinate = CLLocationCoordinate2D()
+    var coordinatePrecise = CLLocationCoordinate2D()
 }
 
 struct SignificantPlace: Identifiable {
